@@ -1,7 +1,7 @@
 from django.conf.urls import patterns
-from movienight.mn.views import mnView
+from movienight.mn.views import MovieNightView
 
 urlpatterns = patterns(
     '',
-    (r'^$', mnView.as_view()),
+    (r'^$', MovieNightView.as_view()),
 )
