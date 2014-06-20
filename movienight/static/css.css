@@ -38,7 +38,7 @@ body, html {
   height: 60px;
   border-bottom: 1px solid #151515;
 }
-#bar .content {
+#bar-content {
   width: 1000px;
   height: 100%;
   margin: 0px auto;

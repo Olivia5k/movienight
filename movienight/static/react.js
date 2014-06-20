@@ -1,17 +1,5 @@
 /** @jsx React.DOM */
 
-var Movie = React.createClass({
-  render: function() {
-    var rawMarkup = "hehehehehe"
-    return (
-      <div className="movie">
-        <h2 className="movieAuthor">{this.props.author}</h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
-    );
-  }
-});
-
 var MovieBox = React.createClass({
   loadMoviesFromServer: function() {
     $.ajax({
@@ -46,7 +34,6 @@ var MovieBox = React.createClass({
       <div className="movieBox">
         <h1>Movies</h1>
         <MovieList data={this.state.data} />
-        <MovieForm onMovieSubmit={this.handleMovieSubmit} />
       </div>
     );
   }
@@ -63,8 +50,7 @@ var MovieList = React.createClass({
 
 var MovieForm = React.createClass({
   handleSubmit: function() {
-    var author = this.refs.author.getDOMNode().value.trim();
-    var text = this.refs.text.getDOMNode().value.trim();
+    var search = this.refs.search.getDOMNode().value.trim();
     this.props.onMovieSubmit({author: author, text: text});
     this.refs.author.getDOMNode().value = '';
     this.refs.text.getDOMNode().value = '';
@@ -73,15 +59,31 @@ var MovieForm = React.createClass({
   render: function() {
     return (
       <form className="movieForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="author" />
-        <input type="text" placeholder="Say something..." ref="text" />
-        <input type="submit" value="Post" />
+        <h1>Movie Night!</h1>
+        <input type="text" ref="search" name="search" value="" placeholder="Search..." />
       </form>
     );
   }
 });
 
+var Movie = React.createClass({
+  render: function() {
+    var rawMarkup = "hehehehehe"
+    return (
+      <div className="movie">
+        <h2 className="movieAuthor">{this.props.author}</h2>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    );
+  }
+});
+
 React.renderComponent(
-  <MovieBox url="/movies.json" pollInterval={200000} />,
-  document.getElementById('main')
+  <MovieForm />,
+  document.getElementById('bar-content')
 );
+
+// React.renderComponent(
+//   <MovieBox url="/movies.json" pollInterval={200000} />,
+//   document.getElementById('main')
+// );
