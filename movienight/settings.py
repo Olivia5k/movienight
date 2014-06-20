@@ -1,6 +1,7 @@
 # Django settings for movienight project.
 
 import os
+import tmdb3
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
@@ -24,6 +25,10 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+# The API key needs to be set as soon as possible, so why not here?
+with open('tmdb3.api.txt') as _api:
+    tmdb3.set_key(_api.read().strip())
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
