@@ -1,0 +1,47 @@
+#main {
+  width: 1000px;
+  margin: 40px auto;
+}
+.score {
+  font-size: 100px;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+.player {
+  width: 370px;
+  float: left;
+  margin-left: 50px;
+  padding: 40px;
+  background-color: rgba(255,255,255,0.3)
+}
+h1, .score {
+  text-align: center;
+}
+.item {
+  color: #efefef;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.close {
+  font-weight: bold;
+  cursor: pointer;
+  float: right;
+}
+
+input {
+  width: 300px;
+  margin: 20px auto 50px;
+  display: block;
+  background-color: rgba(255,255,255,0.5);
+  font-size: 20px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+
+input:focus {
+  outline: none;
+  border-color: #aaa;
+}

@@ -1,0 +1,9 @@
+Django==1.6.5
+gunicorn==19.0.0
+oauthlib==0.6.3
+python-social-auth==0.1.26
+python3-openid==3.0.4
+requests==2.3.0
+requests-oauthlib==0.3.1
+six==1.7.2
+tmdb3==0.6.17
