@@ -12,10 +12,6 @@
     <script language="javascript" type="text/javascript" src="{% static "js.js" %}"></script>
 
     <style type="text/css" media="screen">
-      body, html {
-        background-image: url({% static "glasses.jpg" %});
-        font-family: 'Droid Sans', sans-serif;
-      }
       {% for player in players %}
         .{{ player.cls }} {
           color: {{ player.color }};
@@ -27,6 +23,12 @@
     </style>
   </head>
   <body>
+    <div id="bar">
+      <div class="content">
+        <h1>Movie Night!</h1>
+        <input type="text" name="search" value="" placeholder="Search..."/>
+      </div>
+    </div>
 
     <div id="main">
       {% for player in players %}
