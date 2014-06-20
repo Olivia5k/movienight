@@ -4,23 +4,14 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>movienight</title>
+    <title>Movie Night! |o/</title>
 
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static "css.css" %}" />
     <script language="javascript" type="text/javascript" src="{% static "jquery.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "js.js" %}"></script>
-
-    <style type="text/css" media="screen">
-      {% for player in players %}
-        .{{ player.cls }} {
-          color: {{ player.color }};
-        }
-        #player-{{ player.id }} .item {
-          background-color: {{ player.color }};
-        }
-      {% endfor %}
-    </style>
+    <script src="http://fb.me/react-0.8.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
   </head>
   <body>
     <div id="bar">
@@ -31,27 +22,8 @@
     </div>
 
     <div id="main">
-      {% for player in players %}
-        <div id="player-{{ player.id }}" class="player">
-          <h1 class="{{ player.cls }}">
-            {{ player.name }}
-          </h1>
-
-          <div class="score {{ player.cls }}">
-            {{ player.items.count }}
-          </div>
-
-          <input type="text" name="new" player="{{ player.id }}"
-            placeholder="New hipsterism"/>
-
-          <div class="items">
-            {% for item in player.items.all %}
-              {% include "item.html" %}
-            {% endfor %}
-          </div>
-        </div>
-      {% endfor %}
     </div>
 
+    <script type="text/jsx" src="{% static "react.js" %}"></script>
   </body>
 </html>
