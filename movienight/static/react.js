@@ -9,20 +9,21 @@ var MovieNight = React.createClass({
       }.bind(this)
     });
   },
-  handleMovieSearch: function(movie) {
-    // this.setState({data: movies});
+  handleMovieSearch: function(search) {
     console.log('searching...');
     $.ajax({
-      url: '/search',
+      url: '/',
       type: 'POST',
-      data: movie,
+      data: {search: search},
+      dataType: 'json',
       success: function(data) {
-        this.setState({data: data});
+        console.log(data['movies']);
+        this.setState({movies: data['movies']});
       }.bind(this)
     });
   },
   getInitialState: function() {
-    return {data: []};
+    return {movies: []};
   },
   componentWillMount: function() {
     // this.loadMoviesFromServer();
@@ -33,7 +34,9 @@ var MovieNight = React.createClass({
     return (
       <div className="movieNight">
         <MovieSearchForm onMovieSearch={this.handleMovieSearch} />
-        <MovieList data={this.state.data} />
+        <div id="main">
+          <MovieList movies={this.state.movies} />
+        </div>
       </div>
     );
   }
@@ -41,8 +44,8 @@ var MovieNight = React.createClass({
 
 var MovieList = React.createClass({
   render: function() {
-    var movieNodes = this.props.data.map(function (movie, index) {
-      return <Movie key={index} author={movie.author}>{movie.text}</Movie>;
+    var movieNodes = this.props.movies.map(function (movie, index) {
+      return <Movie key={index} movie={movie}/>;
     });
     return <div className="movieList">{movieNodes}</div>;
   }
@@ -53,7 +56,7 @@ var MovieSearchForm = React.createClass({
     e.preventDefault();
     var search = this.refs.search.getDOMNode().value.trim();
     console.log(search);
-    this.props.onMovieSearch({title: search});
+    this.props.onMovieSearch(search);
     return false;
   },
   render: function() {
@@ -72,8 +75,8 @@ var Movie = React.createClass({
   render: function() {
     return (
       <div className="movie">
-        <h2 className="movieTitle">{this.props.title}</h2>
-        <img className="moviePoster" src="{this.props.poster.large}"/>
+        <img src={this.props.movie.poster}/>
+        <p>{this.props.movie.title}</p>
       </div>
     );
   }

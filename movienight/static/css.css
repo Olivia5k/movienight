@@ -8,30 +8,6 @@ body, html {
   width: 1000px;
   margin: 40px auto;
 }
-.score {
-  font-size: 100px;
-  font-weight: bold;
-  margin-bottom: 50px;
-}
-.player {
-  width: 370px;
-  float: left;
-  margin-left: 50px;
-  padding: 40px;
-  background-color: rgba(255,255,255,0.3)
-}
-.item {
-  color: #efefef;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.close {
-  font-weight: bold;
-  cursor: pointer;
-  float: right;
-}
-
 #bar {
   /* background-image: linear-gradient(#484e55, #3a3f44 60%, #313539); */
   background-color: #3a3f44;
@@ -68,4 +44,27 @@ body, html {
   outline: none;
   border-color: #2A2E33;
   color: #efefef;
+}
+
+.movie {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  height: 233px;
+  width: 140px;
+  background-color: #3a3f44;
+}
+.movie img {
+  width: 120px;
+  height: 180px;
+  margin: 10px;
+}
+.movie p {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #dbdbdb;
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
 }
