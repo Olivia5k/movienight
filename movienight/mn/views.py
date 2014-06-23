@@ -30,6 +30,8 @@ class MovieNightView(View):
 
                 if movie.poster:
                     data['poster'] = movie.poster.geturl('w185')
+                else:
+                    data['poster'] = '/static/dogebutt.png'
 
                 movies.append(data)
 
