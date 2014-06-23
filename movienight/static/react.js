@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var MovieBox = React.createClass({
+var MovieNight = React.createClass({
   loadMoviesFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -9,12 +9,11 @@ var MovieBox = React.createClass({
       }.bind(this)
     });
   },
-  handleMovieSubmit: function(movie) {
-    var movies = this.state.data;
-    movies.push(movie);
-    this.setState({data: movies});
+  handleMovieSearch: function(movie) {
+    // this.setState({data: movies});
+    console.log('searching...');
     $.ajax({
-      url: this.props.url,
+      url: '/search',
       type: 'POST',
       data: movie,
       success: function(data) {
@@ -26,13 +25,14 @@ var MovieBox = React.createClass({
     return {data: []};
   },
   componentWillMount: function() {
-    this.loadMoviesFromServer();
-    setInterval(this.loadMoviesFromServer, this.props.pollInterval);
+    // this.loadMoviesFromServer();
+    console.log('not polling...');
+    // setInterval(this.loadMoviesFromServer, this.props.pollInterval);
   },
   render: function() {
     return (
-      <div className="movieBox">
-        <h1>Movies</h1>
+      <div className="movieNight">
+        <MovieSearchForm onMovieSearch={this.handleMovieSearch} />
         <MovieList data={this.state.data} />
       </div>
     );
@@ -48,42 +48,38 @@ var MovieList = React.createClass({
   }
 });
 
-var MovieForm = React.createClass({
-  handleSubmit: function() {
+var MovieSearchForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
     var search = this.refs.search.getDOMNode().value.trim();
-    this.props.onMovieSubmit({author: author, text: text});
-    this.refs.author.getDOMNode().value = '';
-    this.refs.text.getDOMNode().value = '';
+    console.log(search);
+    this.props.onMovieSearch({title: search});
     return false;
   },
   render: function() {
     return (
-      <form className="movieForm" onSubmit={this.handleSubmit}>
-        <h1>Movie Night!</h1>
-        <input type="text" ref="search" name="search" value="" placeholder="Search..." />
-      </form>
+      <div id="bar">
+        <form id="bar-content" className="movieForm" onSubmit={this.handleSubmit}>
+          <h1>Movie Night!</h1>
+          <input type="text" ref="search" name="search" placeholder="Search..." />
+        </form>
+      </div>
     );
   }
 });
 
 var Movie = React.createClass({
   render: function() {
-    var rawMarkup = "hehehehehe"
     return (
       <div className="movie">
-        <h2 className="movieAuthor">{this.props.author}</h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+        <h2 className="movieTitle">{this.props.title}</h2>
+        <img className="moviePoster" src="{this.props.poster.large}"/>
       </div>
     );
   }
 });
 
 React.renderComponent(
-  <MovieForm />,
-  document.getElementById('bar-content')
+  <MovieNight />,
+  document.getElementById('container')
 );
-
-// React.renderComponent(
-//   <MovieBox url="/movies.json" pollInterval={200000} />,
-//   document.getElementById('main')
-// );
