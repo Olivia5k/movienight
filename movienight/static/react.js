@@ -11,12 +11,17 @@ var MovieNight = React.createClass({
   },
   handleMovieSearch: function(search) {
     console.log('searching...');
+    this.setState({movies: []});
+    var target = document.getElementById('main');
+    var spinner = new Spinner(SPINNER_OPTS).spin(target);
+
     $.ajax({
       url: '/',
       type: 'POST',
       data: {search: search},
       dataType: 'json',
       success: function(data) {
+        spinner.stop();
         console.log(data['movies']);
         this.setState({movies: data['movies']});
       }.bind(this)

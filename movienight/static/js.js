@@ -1,52 +1,20 @@
-$(document).ready(function(e) {
-    $('input').keypress(function(e) {
-        var t = $(this);
+var SPINNER_OPTS = {
+  lines: 11, // The number of lines to draw
+  length: 31, // The length of each line
+  width: 8, // The line thickness
+  radius: 32, // The radius of the inner circle
+  corners: 1, // Corner roundness (0..1)
+  rotate: 0, // The rotation offset
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: '#dbdbdb', // #rgb or #rrggbb or array of colors
+  speed: 1, // Rounds per second
+  trail: 23, // Afterglow percentage
+  shadow: true, // Whether to render a shadow
+  hwaccel: false, // Whether to use hardware acceleration
+  className: 'spinner', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  top: '50%', // Top position relative to parent
+  left: '50%' // Left position relative to parent
+};
 
-        if(e.keyCode == 13) {
-            var item = t.val();
-            t.val('');
-
-            $.ajax({
-                'url': '/',
-                'type': 'POST',
-                'data': {
-                    'create': item,
-                    'player': t.parents('.player').attr('id')
-                },
-                'dataType': 'json',
-                'success': function(json) {
-                    var n = $(json.html),
-                        player = t.parents('.player');
-
-                    if(!json.created) {
-                        return;
-                    }
-
-                    n.hide();
-                    player.find('.items').prepend(n);
-                    player.find('.score').text(json.count);
-                    n.slideDown();
-                }
-            });
-        }
-    });
-
-    $('.items').on('click', '.close', function(e) {
-        var item = $(this).parents('.item'),
-            player = item.parents('.player');
-
-        $.ajax({
-            'url': '/',
-            'type': 'POST',
-            'data': {
-                'delete': item.attr('id'),
-                'player': player.attr('id')
-            },
-            'dataType': 'json',
-            'success': function(json) {
-                player.find('.score').text(json.count);
-                item.slideUp();
-            }
-        });
-    });
-});
+$(document).ready(function(e) {});
