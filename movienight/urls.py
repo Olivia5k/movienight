@@ -9,6 +9,7 @@ urlpatterns = patterns(
     # Examples:
     # url(r'^$', 'movienight.views.home', name='home'),
     url(r'', include('movienight.mn.urls')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
