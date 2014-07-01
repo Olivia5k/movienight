@@ -13,6 +13,13 @@
     <script language="javascript" type="text/javascript" src="{% static "spin.js" %}"></script>
     <script src="http://fb.me/react-0.8.0.js"></script>
     <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+    <script language="javascript" type="text/javascript">
+      {% if user.is_authenticated %}
+        window.auth = true;
+      {% else %}
+        window.auth = false;
+      {% endif %}
+    </script>
   </head>
 
   <body>

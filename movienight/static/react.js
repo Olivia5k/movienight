@@ -22,8 +22,8 @@ var MovieNight = React.createClass({
       dataType: 'json',
       success: function(data) {
         spinner.stop();
-        console.log(data['movies']);
-        this.setState({movies: data['movies']});
+        console.log(data.movies);
+        this.setState({movies: data.movies});
       }.bind(this)
     });
   },
