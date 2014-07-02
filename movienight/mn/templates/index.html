@@ -15,8 +15,10 @@
     <script language="javascript" type="text/javascript">
       {% if user.is_authenticated %}
         window.auth = true;
+        window.user = {{ user.as_json|safe }};
       {% else %}
         window.auth = false;
+        window.user = {};
       {% endif %}
     </script>
   </head>

@@ -57,12 +57,33 @@ var MovieNight = React.createClass({
   render: function() {
     return (
       <div className="movieNight">
-        <MovieSearchForm onMovieSearch={this.handleMovieSearch} />
+        <div id="bar">
+          <MovieSearchForm onMovieSearch={this.handleMovieSearch} />
+        </div>
         <div id="main">
           <MovieList movies={this.state.movies} />
         </div>
       </div>
     );
+  }
+});
+
+var MovieNav = React.createClass({
+  render: function() {
+    if(window.auth) {
+      return (
+      <div className="movieNav">
+        <img src={window.user.picture} />
+        <p>{user.name}</p>
+      </div>
+      );
+    } else {
+      return (
+        <div className="movieNav">
+          <a className="facebook-btn" href="/login/facebook/">Facebook Sign In</a>
+        </div>
+      );
+    }
   }
 });
 
@@ -85,12 +106,11 @@ var MovieSearchForm = React.createClass({
   },
   render: function() {
     return (
-      <div id="bar">
-        <form id="bar-content" className="movieForm" onSubmit={this.handleSubmit}>
-          <h1>Movie Night!</h1>
-          <input type="text" ref="search" name="search" placeholder="Search..." />
-        </form>
-      </div>
+      <form id="bar-content" className="movieForm" onSubmit={this.handleSubmit}>
+        <h1>Movie Night!</h1>
+        <input type="text" ref="search" name="search" placeholder="Search..." />
+        <MovieNav />
+      </form>
     );
   }
 });
