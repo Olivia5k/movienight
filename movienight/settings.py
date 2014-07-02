@@ -2,6 +2,7 @@
 
 import os
 import tmdb3
+from movienight.local_settings import *  # flake8: noqa
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
@@ -134,7 +135,7 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_USER_MODEL = 'mn.MovieGoer'
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/done/'
+LOGIN_REDIRECT_URL = '/'
 URL_PATH = ''
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
@@ -185,5 +186,3 @@ LOGGING = {
         },
     }
 }
-
-from movienight.local_settings import *  # flake8: noqa
