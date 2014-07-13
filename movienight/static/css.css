@@ -213,3 +213,15 @@ a {
 #cast-ticker.unused {
   color: #888;
 }
+
+#main.outside {
+  text-align: center;
+}
+#main.outside h1 {
+  font-size: 80px;
+}
+#main.outside .facebook-btn {
+  margin: 30px auto;
+  font-size: 30px;
+  width: 300px;
+}
