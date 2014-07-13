@@ -11,9 +11,26 @@
 
     <div class="split"></div>
 
-    <a href="/watchlist/{{ movie.id }}" class="btn">
-      Add to watchlist
-    </a>
+    {% if movie.booked %}
+      {% if movie.booked_by == user %}
+        <a href="/watchlist/{{ movie.id }}" class="btn remove">
+          Remove from watchlist
+        </a>
+      {% endif %}
+
+      <div class="bookie">
+        <img
+          class="book_avatar"
+          src="{{ movie.booked_by.large_picture }}"
+          alt="{{ movie.booked_by.first_name }}" />
+
+        <p>Booked by {{ movie.booked_by.first_name }}</p>
+      </div>
+    {% else %}
+      <a href="/watchlist/{{ movie.id }}" class="btn">
+        Add to watchlist
+      </a>
+    {% endif %}
   </div>
 
   <div class="info">

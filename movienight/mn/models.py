@@ -10,6 +10,9 @@ class MovieGoer(AbstractUser):
         uid = social.extra_data['id']
         return 'http://graph.facebook.com/{0}/picture'.format(uid)
 
+    def large_picture(self):
+        return '{0}?type=large'.format(self.picture())
+
     def as_json(self):
         return json.dumps({
             'picture': self.picture(),

@@ -134,6 +134,7 @@ a {
 .movie .side {
   float: left;
   margin-right: 25px;
+  width: 200px;
 }
 .movie .side .imdb {
   display: inline-block;
@@ -160,11 +161,25 @@ a {
 .movie .side .btn:hover {
   background-color: #83a667;
 }
+.movie .side .btn.remove {
+  background-color: #a66767;
+}
+.movie .side .btn.remove:hover {
+  background-color: #ba7474;
+}
 .movie .side .split {
   clear: both;
   border-top: 1px solid #444;
   border-bottom: 1px solid #333;
   margin: 20px 0px;
+}
+.movie .side .bookie img {
+  width: 200px;
+  border-radius: 200px;
+  margin: 20px 0px;
+}
+.movie .side .bookie p {
+  text-align: center;
 }
 
 .movie .info {

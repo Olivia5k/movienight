@@ -1,17 +1,15 @@
 import tmdb3
 
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
 from django.views.generic.base import View
+from django.contrib.auth import logout as auth_logout
 
 from movienight.mn.utils import serialize_movie
+from movienight.mn.models import WatchlistMovie
 
 
 class MovieNightView(View):
-    @csrf_exempt
-    def dispatch(self, *args, **kwargs):
-        return super(MovieNightView, self).dispatch(*args, **kwargs)
-
     def get(self, request):
         template, data = 'index.html', {}
 
@@ -25,10 +23,6 @@ class MovieNightView(View):
 
 
 class MovieNightMovie(View):
-    @csrf_exempt
-    def dispatch(self, *args, **kwargs):
-        return super(MovieNightMovie, self).dispatch(*args, **kwargs)
-
     def get(self, request, movie_id):
         movie = tmdb3.Movie(movie_id)
         return render(
@@ -36,3 +30,21 @@ class MovieNightMovie(View):
             'movie.html',
             {'movie': serialize_movie(movie, True)}
         )
+
+
+class MovieNightWatchlist(View):
+    def get(self, request, movie_id):
+        item, created = WatchlistMovie.objects.get_or_create(
+            user=request.user,
+            movie_id=movie_id,
+        )
+
+        if not created:
+            item.delete()
+
+        return redirect('movie', movie_id=movie_id)
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect('/')

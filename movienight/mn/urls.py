@@ -1,9 +1,13 @@
-from django.conf.urls import patterns
+from django.conf.urls import url
 from movienight.mn.views import MovieNightView
 from movienight.mn.views import MovieNightMovie
+from movienight.mn.views import MovieNightWatchlist
+from movienight.mn.views import logout
 
-urlpatterns = patterns(
-    '',
-    (r'^$', MovieNightView.as_view()),
-    (r'^movie/(?P<movie_id>\d+)', MovieNightMovie.as_view()),
+urlpatterns = (
+    url(r'^$', MovieNightView.as_view()),
+    url(r'^movie/(?P<movie_id>\d+)', MovieNightMovie.as_view(), name='movie'),
+    url(r'^watchlist/(?P<movie_id>\d+)', MovieNightWatchlist.as_view()),
+
+    url(r'^logout/', logout),
 )
