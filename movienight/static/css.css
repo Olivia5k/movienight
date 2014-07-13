@@ -70,6 +70,7 @@ body, html {
   height: 233px;
   width: 140px;
   background-color: #3a3f44;
+  text-decoration: none;
 }
 .movie img {
   width: 120px;

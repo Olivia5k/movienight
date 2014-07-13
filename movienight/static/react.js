@@ -121,10 +121,10 @@ var MovieSearchForm = React.createClass({
 var Movie = React.createClass({
   render: function() {
     return (
-      <div className="movie">
+      <a href={"/movie/" + this.props.movie.id} className="movie">
         <img src={this.props.movie.poster}/>
         <p>{this.props.movie.title}</p>
-      </div>
+      </a>
     );
   }
 });
@@ -143,10 +143,24 @@ var MovieGoer = React.createClass({
 });
 
 var MovieEntry = React.createClass({
+  componentWillMount: function() {
+    console.log('grabbing movie' + this.props.id);
+
+    $.ajax({
+      url: '/movie/' + this.props.id,
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        console.log(data);
+        this.setState(data);
+      }.bind(this)
+    });
+  },
   render: function() {
     return (
       <div className="movieEntry">
-        <p>{this.props.name}</p>
+        <h1>{this.props.name}</h1>
+        <img src={this.props.poster} />
       </div>
     );
   }
@@ -176,7 +190,7 @@ window.onpopstate = function(e) {
 
   if(e.state.module === 'movie') {
     React.renderComponent(
-      <MovieEntry name={new Date().getTime()} />,
+      <MovieEntry id={e.state.data} />,
       document.getElementById('main')
     );
   }
@@ -184,13 +198,15 @@ window.onpopstate = function(e) {
   return false;
 }
 
-$(document.body).on('click', 'a', function() {
+$(document.body).on('click', 'a', function(e) {
   var href = $(this).attr("href");
   var split = href.split('/');
   var state = {
     module: split[1],
     data: split[2]
   };
+
+  e.preventDefault();
 
   history.pushState(state, '', '#'+href);
   window.onpopstate({state: state});
