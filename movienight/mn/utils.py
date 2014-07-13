@@ -1,8 +1,3 @@
-import os
-
-from movienight import settings
-
-
 def serialize_movie(movie, cast=False):
     data = {
         'id': movie.id,
@@ -21,9 +16,3 @@ def serialize_movie(movie, cast=False):
         data['cast'] = [c for c in movie.cast[:10]]
 
     return data
-
-
-def js_template(template):
-    filename = os.path.join(settings.PROJECT_PATH, 'mn', 'templates', template)
-    with open(filename) as f:
-        return f.read()

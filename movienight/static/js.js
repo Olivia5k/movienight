@@ -18,28 +18,6 @@ var SPINNER_OPTS = {
 };
 
 $(document).ready(function() {
-  $('#bar-content').submit(function(e) {
-    var target = document.getElementById('main');
-    var spinner = new Spinner(SPINNER_OPTS).spin(target);
-
-    e.preventDefault();
-    console.log('searching...');
-
-    $.ajax({
-      url: '/',
-      type: 'POST',
-      data: {search: $('input', this).val()},
-      dataType: 'json',
-      success: function(data) {
-        spinner.stop();
-        console.log(data);
-
-        $.template('movie', data.template);
-        $.tmpl('movie', data.movies).appendTo('#main');
-      }
-    });
-  });
-
   $('.movie .cast img').hover(
     function() {
       var t = $('#cast-ticker');

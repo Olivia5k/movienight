@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block content %}
+  {% for movie in movies %}
+    <a href="/movie/{{ movie.id }}" class="moviethumb">
+      <img src="{{ movie.poster }}" />
+      <p>{{ movie.title }}</p>
+    </a>
+  {% endfor %}
+{% endblock %}
