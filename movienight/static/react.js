@@ -1,23 +1,5 @@
 /** @jsx React.DOM */
 
-var SPINNER_OPTS = {
-  lines: 11, // The number of lines to draw
-  length: 31, // The length of each line
-  width: 8, // The line thickness
-  radius: 32, // The radius of the inner circle
-  corners: 1, // Corner roundness (0..1)
-  rotate: 0, // The rotation offset
-  direction: 1, // 1: clockwise, -1: counterclockwise
-  color: '#dbdbdb', // #rgb or #rrggbb or array of colors
-  speed: 1, // Rounds per second
-  trail: 23, // Afterglow percentage
-  shadow: true, // Whether to render a shadow
-  hwaccel: false, // Whether to use hardware acceleration
-  className: 'spinner', // The CSS class to assign to the spinner
-  zIndex: 2e9, // The z-index (defaults to 2000000000)
-  top: '50%', // Top position relative to parent
-  left: '50%' // Left position relative to parent
-};
 
 var MovieNight = React.createClass({
   loadMoviesFromServer: function() {
@@ -29,22 +11,6 @@ var MovieNight = React.createClass({
     });
   },
   handleMovieSearch: function(search) {
-    console.log('searching...');
-    this.setState({movies: []});
-    var target = document.getElementById('main');
-    var spinner = new Spinner(SPINNER_OPTS).spin(target);
-
-    $.ajax({
-      url: '/',
-      type: 'POST',
-      data: {search: search},
-      dataType: 'json',
-      success: function(data) {
-        spinner.stop();
-        console.log(data.movies);
-        this.setState({movies: data.movies});
-      }.bind(this)
-    });
   },
   getInitialState: function() {
     return {movies: []};

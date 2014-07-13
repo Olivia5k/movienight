@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
 
 from movienight.mn.utils import serialize_movie
+from movienight.mn.utils import js_template
 
 
 class MovieNightView(View):
@@ -29,6 +30,7 @@ class MovieNightView(View):
                 'movies': movies
             }
 
+        ret['template'] = js_template('searchresult.html')
         return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
@@ -39,6 +41,8 @@ class MovieNightMovie(View):
 
     def get(self, request, movie_id):
         movie = tmdb3.Movie(movie_id)
-        data = serialize_movie(movie)
-
-        return HttpResponse(json.dumps(data), content_type="application/json")
+        return render(
+            request,
+            'movie.html',
+            {'movie': serialize_movie(movie, True)}
+        )

@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div id="movie-{{ movie.id }}" class="movie">
+  <div class="side">
+    <img src="{{ movie.poster }}" alt="{{ movie.title }}" />
+    <div class="clear"></div>
+
+    <p>{{ movie.runtime }} minutes, {{ movie.rating }}/10</p>
+    <a class="imdb" href="{{ movie.imdb }}">IMDb</a>
+
+    <div class="split"></div>
+
+    <a href="/watchlist/{{ movie.id }}" class="btn">
+      Add to watchlist
+    </a>
+  </div>
+
+  <div class="info">
+    <h1>{{ movie.title }}</h1>
+    <p>{{ movie.description }}</p>
+
+    <div class="clear"></div>
+
+    <div class="cast">
+      {% for cast in movie.cast %}
+      <div class="character">
+        <img src="{{ cast.profile.geturl }}"
+        alt="{{ cast.name }} as {{ cast.character }}" />
+      </div>
+      {% endfor %}
+
+      <div class="clear"></div>
+      <p id="cast-ticker" class="unused">Hover images for character info</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

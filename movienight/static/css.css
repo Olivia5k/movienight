@@ -5,6 +5,14 @@ body, html {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+
 #main {
   width: 1000px;
   margin: 40px auto;
@@ -63,7 +71,7 @@ body, html {
   margin: 8px 12px;
 }
 
-.movie {
+.moviethumb {
   float: left;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -72,12 +80,12 @@ body, html {
   background-color: #3a3f44;
   text-decoration: none;
 }
-.movie img {
+.moviethumb img {
   width: 120px;
   height: 180px;
   margin: 10px;
 }
-.movie p {
+.moviethumb p {
   text-align: center;
   font-size: 12px;
   font-weight: bold;
@@ -121,4 +129,72 @@ body, html {
 .facebook-btn:active {
   position:relative;
   top:1px;
+}
+
+.movie .side {
+  float: left;
+  margin-right: 25px;
+}
+.movie .side .imdb {
+  display: inline-block;
+  background-color: #efd969;
+  padding: 4px 10px;
+  color: black;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.movie .side .imdb:hover {
+  background-color: #fce25b;
+}
+.movie .side .btn {
+  display: block;
+  background-color: #79995e;
+  padding: 4px 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 20px;
+  width: 130px;
+  color: white;
+  text-align: center;
+}
+.movie .side .btn:hover {
+  background-color: #83a667;
+}
+.movie .side .split {
+  clear: both;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #333;
+  margin: 20px 0px;
+}
+
+.movie .info {
+  float: left;
+  width: 600px;
+}
+.movie .info p {
+  line-height: 1.3em;
+}
+
+.movie .info h1 {
+  margin-top: 0px;
+}
+.movie .cast {
+  background-color: #3a3f44;
+  padding: 10px 5px;
+  margin: 40px 0px 0px;
+  width: 600px;
+  height: 110px;
+}
+.movie .cast p {
+  text-align: center;
+}
+
+.movie .character img {
+  float: left;
+  width: 50px;
+  height: 75px;
+  margin: 0px 5px;
+}
+#cast-ticker.unused {
+  color: #888;
 }
