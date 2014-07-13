@@ -62,6 +62,7 @@ var MovieNight = React.createClass({
         </div>
         <div id="main">
           <MovieList movies={this.state.movies} />
+          <MovieGoer state={this.state} />
         </div>
       </div>
     );
@@ -72,10 +73,10 @@ var MovieNav = React.createClass({
   render: function() {
     if(window.auth) {
       return (
-      <div className="movieNav">
-        <img src={window.user.picture} />
-        <p>{user.name}</p>
-      </div>
+        <a href={"/user/" + window.user.name} className="movieNav">
+          <img src={window.user.picture} />
+          <p>{user.name}</p>
+        </a>
       );
     } else {
       return (
@@ -107,7 +108,9 @@ var MovieSearchForm = React.createClass({
   render: function() {
     return (
       <form id="bar-content" className="movieForm" onSubmit={this.handleSubmit}>
-        <h1>Movie Night!</h1>
+        <a href="/">
+          <h1>Movie Night!</h1>
+        </a>
         <input type="text" ref="search" name="search" placeholder="Search..." />
         <MovieNav />
       </form>
@@ -126,7 +129,70 @@ var Movie = React.createClass({
   }
 });
 
+var MovieGoer = React.createClass({
+  componentWillMount: function() {
+    console.log('willmount');
+  },
+  render: function() {
+    return (
+      <div className="movieGoer">
+        <p>{this.props.name}</p>
+      </div>
+    );
+  }
+});
+
+var MovieEntry = React.createClass({
+  render: function() {
+    return (
+      <div className="movieEntry">
+        <p>{this.props.name}</p>
+      </div>
+    );
+  }
+});
+
+var modules = {
+  'user': MovieGoer,
+  'movie': MovieEntry,
+};
+
 React.renderComponent(
   <MovieNight />,
   document.getElementById('container')
 );
+
+// This is a poor man's routing. For any code below this that you read, I am
+// very very sorry, Canadian style.
+window.onpopstate = function(e) {
+  console.log(e.state);
+
+  if(e.state.module === 'user') {
+    React.renderComponent(
+      <MovieGoer name={new Date().getTime()} />,
+      document.getElementById('main')
+    );
+  }
+
+  if(e.state.module === 'movie') {
+    React.renderComponent(
+      <MovieEntry name={new Date().getTime()} />,
+      document.getElementById('main')
+    );
+  }
+
+  return false;
+}
+
+$(document.body).on('click', 'a', function() {
+  var href = $(this).attr("href");
+  var split = href.split('/');
+  var state = {
+    module: split[1],
+    data: split[2]
+  };
+
+  history.pushState(state, '', '#'+href);
+  window.onpopstate({state: state});
+  return false;
+});
