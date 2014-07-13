@@ -10,21 +10,30 @@
     <link rel="stylesheet" type="text/css" href="{% static "css.css" %}" />
     <script language="javascript" type="text/javascript" src="{% static "jquery.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "spin.js" %}"></script>
-    <script src="http://fb.me/react-0.8.0.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
-    <script language="javascript" type="text/javascript">
-      {% if user.is_authenticated %}
-        window.auth = true;
-        window.user = {{ user.as_json|safe }};
-      {% else %}
-        window.auth = false;
-        window.user = {};
-      {% endif %}
-    </script>
   </head>
 
   <body>
-    <div id="container"></div>
-    <script type="text/jsx" src="{% static "react.js" %}"></script>
+    <div id="bar">
+      <form id="bar-content" class="movieForm">
+        <a href="/">
+          <h1>Movie Night!</h1>
+        </a>
+        <input type="text" ref="search" name="search" placeholder="Search..." />
+        {% if user.is_authenticated %}
+          <a href="/user/{{ user.first_name }}" class="movieNav">
+            <img src="{{ user.picture }}" />
+            <p>{{ user.first_name }}</p>
+          </a>
+        {% else %}
+          <div class="movieNav">
+            <a class="facebook-btn" href="/login/facebook/">Facebook Sign In</a>
+          </div>
+        {% endif %}
+      </form>
+    </div>
+
+    <div id="main">
+      {% block content %}{% endblock %}
+    </div>
   </body>
 </html>
