@@ -7,17 +7,22 @@ from django.contrib.auth import logout as auth_logout
 
 from movienight.mn.utils import serialize_movie
 from movienight.mn.models import WatchlistMovie
+from movienight.mn.models import Season
 
 
 class MovieNightView(View):
     def get(self, request):
-        template, data = 'index.html', {}
+        data = {}
 
         search = request.GET.get('search', '').strip()
         if search:
             template = 'search.html'
             res = tmdb3.searchMovie(request.GET['search'])
             data['movies'] = [serialize_movie(m) for m in res[:20]]
+
+        else:
+            template = 'start.html'
+            data['season'] = Season.objects.latest()
 
         return render(request, template, data)
 

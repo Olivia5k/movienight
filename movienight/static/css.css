@@ -79,11 +79,21 @@ a {
   width: 140px;
   background-color: #3a3f44;
   text-decoration: none;
+  position: relative;
 }
-.moviethumb img {
+.moviethumb img.poster {
   width: 120px;
   height: 180px;
   margin: 10px;
+}
+.moviethumb img.user {
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  box-shadow: -2px 2px 2px #000;
 }
 .moviethumb p {
   text-align: center;

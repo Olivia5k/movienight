@@ -1,0 +1,9 @@
+<a href="/movie/{{ movie.id }}" class="moviethumb">
+  <img class="poster" src="{{ movie.poster }}" />
+
+  {% if movie.booked %}
+    <img class="user" src="{{ movie.booked_by.picture }}" />
+  {% endif %}
+
+  <p>{{ movie.title }}</p>
+</a>

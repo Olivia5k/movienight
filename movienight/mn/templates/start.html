@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block content %}
+  <h1>Movie Night {{ season.index }}</h1>
+
+  <h3>Remaining</h3>
+  {% for user in season.upcoming %}
+    {% include "thumb.html" with movie=user.next_movie %}
+  {% endfor %}
+
+  <div class="clear"></div>
+
+  <h3>Past</h3>
+  {% for user in season.done.all %}
+    {% include "thumb.html" with movie=user.next_movie %}
+  {% endfor %}
+{% endblock %}
