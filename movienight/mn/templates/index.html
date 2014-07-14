@@ -20,7 +20,12 @@
           <h1>Movie Night!</h1>
         </a>
         {% if user.is_authenticated %}
-          <input type="text" ref="search" name="search" placeholder="Search..." />
+          <input
+            type="text"
+            ref="search"
+            name="search"
+            placeholder="Search nice movies..." />
+
           <a href="/user/{{ user.first_name }}" class="movieNav">
             <img src="{{ user.picture }}" />
             <p>{{ user.name }}</p>
