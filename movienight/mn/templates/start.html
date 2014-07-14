@@ -3,7 +3,7 @@
 {% block content %}
   <div class="hero">
     <h3>Next up: {{ season.episode }}</h3>
-    {% if next %}
+    {% if next.movie %}
       <a href="/movie/{{ next.movie.id }}">
         <img
           class="poster"
@@ -22,7 +22,7 @@
         </p>
       </a>
     {% else %}
-      <img src="/static/dogebutt.png" alt="wow so not movie"/>
+      <img class="poster" src="/static/dogebutt.png" alt="wow so not movie"/>
       <h1 class="dark">No movie selected :(</h1>
     {% endif %}
   </div>
