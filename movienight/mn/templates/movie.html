@@ -22,9 +22,9 @@
         <img
           class="book_avatar"
           src="{{ movie.booked_by.large_picture }}"
-          alt="{{ movie.booked_by.first_name }}" />
+          alt="{{ movie.booked_by.name }}" />
 
-        <p>Booked by {{ movie.booked_by.first_name }}</p>
+        <p>Booked by {{ movie.booked_by.name }}</p>
       </div>
     {% else %}
       <a href="/watchlist/{{ movie.id }}" class="btn">
