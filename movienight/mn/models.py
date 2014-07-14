@@ -62,7 +62,10 @@ class Season(models.Model):
         from movienight.mn.utils import serialize_movie
         movieset = self.movies.filter(watched=False)
         if not movieset.exists():
-            return {}
+            return {
+                'user': None,
+                'movie': None
+            }
 
         movie = movieset[0]
         return {
@@ -90,7 +93,8 @@ class Season(models.Model):
 
 class WatchlistMovie(models.Model):
     user = models.ForeignKey(MovieGoer, related_name='movies')
-    season = models.ForeignKey(Season, null=True, related_name='movies')
+    season = models.ForeignKey(Season, null=True, blank=True,
+                               related_name='movies')
     movie_id = models.IntegerField()
     watched = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
