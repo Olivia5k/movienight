@@ -49,16 +49,31 @@ class Season(models.Model):
     def index(self):
         return 'S{0:02}'.format(self.id)
 
+    def next(self):
+        from movienight.mn.utils import serialize_movie
+        movieset = self.movies.filter(watched=False)
+        if not movieset.exists():
+            return {}
+
+        movie = movieset[0]
+        return {
+            'user': movie.user,
+            'movie': serialize_movie(tmdb3.Movie(movie.movie_id))
+        }
+
+    def episode(self):
+        return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + 1)
+
     def upcoming_users(self):
         return self.users.exclude(
-            id__in=[x.user_id for x in self.watched.all()]
+            id__in=[x.user_id for x in self.movies.all()]
         )
 
     def past_movies(self):
         from movienight.mn.utils import serialize_movie
         data = []
 
-        for wm in self.watched.all():
+        for wm in self.movies.filter(watched=True):
             data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
 
         return data
@@ -66,7 +81,7 @@ class Season(models.Model):
 
 class WatchlistMovie(models.Model):
     user = models.ForeignKey(MovieGoer, related_name='movies')
-    season = models.ForeignKey(Season, null=True, related_name='watched')
+    season = models.ForeignKey(Season, null=True, related_name='movies')
     movie_id = models.IntegerField()
     watched = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
@@ -74,3 +89,10 @@ class WatchlistMovie(models.Model):
 
     class Meta:
         ordering = ('order', 'date_created')
+
+    def __str__(self):
+        return '{0} ({1})'.format(self.movie()['title'], self.user.first_name)
+
+    def movie(self):
+        from movienight.mn.utils import serialize_movie
+        return serialize_movie(tmdb3.Movie(self.movie_id))

@@ -1,19 +1,47 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <h1>Movie Night {{ season.index }}</h1>
+  <div class="hero">
+    <h3>Next up: {{ season.episode }}</h3>
+    {% if next %}
+      <a href="/movie/{{ next.movie.id }}">
+        <img
+          class="poster"
+          src="{{ next.movie.large_poster }}"
+          alt="{{ next.movie.title }}"/>
+        <h1>{{ next.movie.title }}</h1>
+      </a>
 
-  <h3>Remaining</h3>
-  {% for user in season.upcoming_users %}
-    {% if user.has_next %}
-      {% include "thumb.html" with movie=user.next_movie %}
+      <a href="/user/{{ booked_by.first_name }}">
+        <img
+          class="user"
+          src="{{ booked_by.large_picture }}"
+          alt="{{ booked_by.name }}">
+        <p>
+          A fine selection by {{ booked_by.first_name }}!
+        </p>
+      </a>
+    {% else %}
+      <img src="/static/dogebutt.png" alt="wow so not movie"/>
+      <h1 class="dark">No movie selected :(</h1>
     {% endif %}
-  {% endfor %}
+  </div>
 
-  <div class="clear"></div>
+  <div class="season">
+    <h1>Movie Night {{ season.index }}</h1>
 
-  <h3>Past</h3>
-  {% for movie in season.past_movies %}
-    {% include "thumb.html" %}
-  {% endfor %}
+    <h3>Remaining</h3>
+    {% for user in season.upcoming_users %}
+      {% if user.has_next %}
+        {% include "thumb.html" with movie=user.next_movie %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="clear"></div>
+
+    <h3>Already watched</h3>
+    {% for movie in season.past_movies %}
+      {% include "thumb.html" %}
+    {% endfor %}
+  </div>
 {% endblock %}

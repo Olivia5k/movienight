@@ -22,7 +22,12 @@ class MovieNightView(View):
 
         else:
             template = 'start.html'
-            data['season'] = Season.objects.latest()
+            season = Season.objects.latest()
+            next = season.next()
+
+            data['season'] = season
+            data['next'] = next
+            data['booked_by'] = next['user']
 
         return render(request, template, data)
 
