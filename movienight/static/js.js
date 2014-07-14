@@ -17,6 +17,23 @@ var SPINNER_OPTS = {
   left: '50%' // Left position relative to parent
 };
 
+
+function set_configs() {
+  $('.config').each(function(idx) {
+    $('.up, .down', this).each(function() {
+      $(this).css('display', 'inline');
+    });
+    $('.count', this).text(idx + 1);
+  });
+
+  $('.config:first-child').each(function() {
+    $('.up', this).css('display', 'none');
+  });
+  $('.config:last-child').each(function() {
+    $('.down', this).css('display', 'none');
+  });
+}
+
 $(document).ready(function() {
   $('.movie .cast img').hover(
     function() {
@@ -31,4 +48,33 @@ $(document).ready(function() {
       t.addClass('unused').text(t.attr('orig'));
     }
   );
+
+  $('.config .up, .config .down').click(function() {
+    var t = $(this),
+        movie = t.parents('.config');
+
+    if(t.hasClass('up')) {
+      movie.prev().before(movie);
+    } else {
+      movie.next().after(movie);
+    }
+
+    set_configs();
+
+    var ids = [];
+    $('.config').each(function() { ids.push($(this).attr('id')) });
+    console.log(ids)
+
+    $.ajax({
+      url: window.location.pathname,
+      type: 'POST',
+      dataType: 'json',
+      data: {'ids': ids.join(',')},
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  });
+
+  set_configs()
 });

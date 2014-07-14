@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block content %}
+  <h1>{{ user.name }}</h1>
+  <div id="usermovies">
+    {% for movie in user.get_movies %}
+      {% include "movethumb.html" %}
+    {% endfor %}
+  </div>
+
+  <div class="clear"></div>
+  <a href="/logout/">Log out :(</a>
+{% endblock %}

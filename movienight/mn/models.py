@@ -28,6 +28,15 @@ class MovieGoer(AbstractUser):
             return "OP"
         return self.first_name
 
+    def get_movies(self):
+        from movienight.mn.utils import serialize_movie
+        data = []
+
+        for wm in self.movies.all():
+            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+
+        return data
+
 
 class Season(models.Model):
     users = models.ManyToManyField(MovieGoer, related_name='seasons')
@@ -38,7 +47,7 @@ class Season(models.Model):
 
     def __str__(self):
         count = self.users.count()
-        remaining = count - self.watched.count()
+        remaining = count - self.movies.count()
 
         return '{0} ({1} episodes, {2} remaining)'.format(
             self.index(),

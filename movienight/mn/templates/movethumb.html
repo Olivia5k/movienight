@@ -1,0 +1,12 @@
+<div id="{{ movie.id }}" class="moviethumb config">
+  <a href="/movie/{{ movie.id }}">
+    <img class="poster" src="{{ movie.poster }}" />
+  </a>
+
+  <p>
+    <span class="up">⇦</span>
+    &nbsp;
+    #<span class="count">{{ forloop.counter }}</span>
+    &nbsp;
+    <span class="down">⇨</span></p>
+</div>
