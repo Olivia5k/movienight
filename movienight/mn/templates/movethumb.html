@@ -3,10 +3,15 @@
     <img class="poster" src="{{ movie.poster }}" />
   </a>
 
-  <p>
-    <span class="up">⇦</span>
-    &nbsp;
-    #<span class="count">{{ forloop.counter }}</span>
-    &nbsp;
-    <span class="down">⇨</span></p>
+  {% if user == current %}
+    <p>
+      <span class="up">⇦</span>
+      &nbsp;
+      #<span class="count">{{ forloop.counter }}</span>
+      &nbsp;
+      <span class="down">⇨</span>
+    </p>
+  {% else %}
+    <p>{{ movie.title }}</p>
+  {% endif %}
 </div>

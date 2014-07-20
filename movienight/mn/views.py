@@ -68,7 +68,7 @@ class MovieNightUserView(View):
         return render(
             request,
             'user.html',
-            {'user': user}
+            {'current': user}
         )
 
     def post(self, request, first_name):

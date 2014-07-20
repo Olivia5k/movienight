@@ -1,9 +1,9 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <h1>{{ user.name }}</h1>
-  <div id="usermovies">
-    {% for movie in user.get_movies %}
+  <h1>{{ current.name }}</h1>
+  <div id="currentmovies">
+    {% for movie in current.get_movies %}
       {% include "movethumb.html" %}
     {% endfor %}
   </div>
