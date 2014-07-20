@@ -1,29 +1,38 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <div class="hero">
-    <h3>Next up: {{ season.episode }}</h3>
-    {% if next.movie %}
-      <a href="/movie/{{ next.movie.id }}">
-        <img
-          class="poster"
-          src="{{ next.movie.large_poster }}"
-          alt="{{ next.movie.title }}"/>
-        <h1>{{ next.movie.title }}</h1>
-      </a>
+  <div class="start-side">
+    <div class="hero">
+      <h3>Next up: {{ season.episode }}</h3>
+      {% if next.movie %}
+        <a href="/movie/{{ next.movie.id }}">
+          <img
+            class="poster"
+            src="{{ next.movie.large_poster }}"
+            alt="{{ next.movie.title }}"/>
+          <h1>{{ next.movie.title }}</h1>
+        </a>
 
-      <a href="/user/{{ booked_by.first_name }}">
-        <img
-          class="user"
-          src="{{ booked_by.large_picture }}"
-          alt="{{ booked_by.name }}">
-        <p>
-          A fine selection by {{ booked_by.name }}!
-        </p>
-      </a>
-    {% else %}
-      <img class="poster" src="/static/dogebutt.png" alt="wow so not movie"/>
-      <h1 class="dark">No movie selected :(</h1>
+        <a href="/user/{{ booked_by.first_name }}">
+          <img
+            class="user"
+            src="{{ booked_by.large_picture }}"
+            alt="{{ booked_by.name }}">
+          <p>
+            A fine selection by {{ booked_by.name }}!
+          </p>
+        </a>
+      {% else %}
+        <img class="poster" src="/static/dogebutt.png" alt="wow so not movie"/>
+        <h1 class="dark">No movie selected :(</h1>
+      {% endif %}
+    </div>
+    {% if user.is_superuser %}
+      <div class="admin">
+        <h1>Admin tools &lt;3</h1>
+        <a href="/roulette">Roll next movie</a>
+        <a href="/admin" target="_blank">Site administration</a>
+      </div>
     {% endif %}
   </div>
 
