@@ -77,9 +77,8 @@ class Season(models.Model):
         return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + 1)
 
     def upcoming_users(self):
-        return self.users.exclude(
-            id__in=[x.user_id for x in self.movies.all()]
-        )
+        s = self.users.exclude(id__in=[x.user_id for x in self.movies.all()])
+        return s.order_by('?')
 
     def past_movies(self):
         from movienight.mn.utils import serialize_movie
