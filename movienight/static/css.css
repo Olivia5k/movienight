@@ -281,3 +281,10 @@ a {
   font-weight: bold;
   cursor: pointer;
 }
+.logout {
+  display: inline-block;
+  background-color: #ba7474;
+  padding: 4px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+}

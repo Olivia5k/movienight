@@ -9,5 +9,7 @@
   </div>
 
   <div class="clear"></div>
-  <a href="/logout/">Log out :(</a>
+  {% if user == current %}
+    <a class="logout" href="/logout/">Log out :(</a>
+  {% endif %}
 {% endblock %}
