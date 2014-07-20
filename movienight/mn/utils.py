@@ -5,6 +5,7 @@ def serialize_movie(movie, full=False):
     data = {
         'id': movie.id,
         'title': movie.title,
+        'year': movie.releasedate.year,
         'poster': '/static/dogebutt.png',
         'large_poster': '/static/dogebutt.png',
         'description': movie.overview,

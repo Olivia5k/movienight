@@ -204,6 +204,10 @@ a {
 .movie .info h1 {
   margin-top: 0px;
 }
+.movie .info h1 span {
+  font-size: 18px;
+  color: #777;
+}
 .movie .cast {
   background-color: #3a3f44;
   padding: 10px 5px;
