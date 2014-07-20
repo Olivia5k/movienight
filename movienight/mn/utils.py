@@ -16,10 +16,7 @@ def serialize_movie(movie, full=False):
 
     if movie.poster:
         data['poster'] = movie.poster.geturl('w185')
-        if 'w343' in movie.poster.sizes():
-            data['large_poster'] = movie.poster.geturl('w343')
-        else:
-            data['large_poster'] = data['poster']
+        data['large_poster'] = movie.poster.geturl()
 
     if full:
         data['cast'] = [c for c in movie.cast[:10]]
