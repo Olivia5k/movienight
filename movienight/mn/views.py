@@ -1,5 +1,7 @@
 import tmdb3
+import json
 
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic.base import View
@@ -80,8 +82,41 @@ class MovieNightUserView(View):
             movie.order = x
             movie.save()
 
-        from django.http.response import HttpResponse
         return HttpResponse(request, '"done"')
+
+
+class MovieNightRouletteView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(MovieNightRouletteView, self).dispatch(*args, **kwargs)
+
+    def get(self, request):
+        if not request.user.is_superuser:
+            return redirect('/')
+
+        season = Season.objects.latest()
+
+        data = {
+            'season': season,
+        }
+        return render(request, 'roulette.html', data)
+
+    def post(self, request):
+        season = Season.objects.latest()
+        movies = []
+
+        for user in season.upcoming_users():
+            watchlist = user.movies.filter(watched=False)[0]
+            movie = tmdb3.Movie(watchlist.movie_id)
+
+            movies.append({
+                'owner': {'name': user.name(), 'img': user.large_picture()},
+                'movie': serialize_movie(movie, json=True)
+            })
+
+        # watchlist.season = season
+        # watchlist.save()
+        return HttpResponse(json.dumps(movies))
 
 
 def logout(request):

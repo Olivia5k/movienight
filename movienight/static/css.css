@@ -13,6 +13,9 @@ a {
 .clear {
   clear: both;
 }
+.center {
+  text-align: center;
+}
 
 #main {
   width: 1000px;
@@ -308,4 +311,39 @@ a {
   padding: 4px 10px;
   font-weight: bold;
   border-radius: 4px;
+}
+
+#roulette {
+  width: 700px;
+  background-color: #3a3f44;
+  padding: 10px 30px;
+  text-align: center;
+  margin: 20px auto;
+}
+#roulette .btn {
+  font-size: 30px;
+  display: block;
+  background-color: #79995e;
+  padding: 20px 35px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 150px auto;
+  width: 130px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+#roulette .btn.pressed {
+  background-color: #444449;
+  color: #888;
+}
+#roulette img {
+  width: 400px;
+}
+#roulette .spinner {
+  width: 300px;
+}
+#chosen {
+  height: 700px;
 }

@@ -17,7 +17,6 @@ var SPINNER_OPTS = {
   left: '50%' // Left position relative to parent
 };
 
-
 function set_configs() {
   $('.config').each(function(idx) {
     $('.up, .down', this).each(function() {
@@ -32,6 +31,52 @@ function set_configs() {
   $('.config:last-child').each(function() {
     $('.down', this).css('display', 'none');
   });
+}
+
+function roulette(state, data) {
+  console.log(state);
+
+  // Set new states
+  state.up = state.up && state.timeout > state.low;
+  state.down = !state.up && state.stalls == 0 && state.timeout < state.high;
+  state.spins++;
+
+  // Shuffle the array
+  if(state.spins % state.data.length === 0) {
+    state.data = shuffle(state.data);
+  }
+
+  var data = state.data[state.spins % state.data.length];
+
+  $('#chosen h1').text(data.movie.title);
+  $('#chosen img').attr('src', data.movie.large_poster).show();
+
+  if(state.up) {
+    state.timeout *= state.increment;
+    return setTimeout(roulette, state.timeout, state);
+  }
+
+  if(state.stalls > 0) {
+    state.stalls--;
+    return setTimeout(roulette, state.timeout, state);
+  }
+
+  if(state.down) {
+    state.timeout /= state.increment;
+    return setTimeout(roulette, state.timeout, state);
+  }
+
+  console.log('done!');
+}
+
+function shuffle(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array
 }
 
 $(document).ready(function() {
@@ -77,4 +122,35 @@ $(document).ready(function() {
   });
 
   set_configs()
+
+  $('#roulette .btn').click(function() {
+    var target = document.getElementById('roulette');
+    var spinner = new Spinner(SPINNER_OPTS).spin(target);
+    $(this).hide();
+
+    $.ajax({
+      url: '/roulette/',
+      type: 'POST',
+      data: '{"hehe": false}',
+      dataType: 'json',
+      success: function(data) {
+        spinner.stop();
+        console.log(data);
+
+        var state = {
+          'data': data,
+          'spins': 0,
+          'timeout': 1000,
+          'low': 50,
+          'high': 1500,
+          'stalls': 100,
+          'increment': 0.9,
+          'up': true,
+          'down': true,
+        }
+
+        roulette(state);
+      }
+    });
+  });
 });
