@@ -107,10 +107,10 @@ class MovieNightRouletteView(View):
         return render(request, 'roulette.html', data)
 
     def post(self, request):
-        season = Season.objects.latest()
-        # watchlist.season = season
-        # watchlist.save()
-        return HttpResponse(json.dumps(movies))
+        watchlist = WatchlistMovie.objects.get(movie_id=request.POST['id'])
+        watchlist.season = Season.objects.latest()
+        watchlist.save()
+        return HttpResponse('"done"')
 
 
 def logout(request):
