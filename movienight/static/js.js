@@ -18,17 +18,17 @@ var SPINNER_OPTS = {
 };
 
 function set_configs() {
-  $('.config').each(function(idx) {
+  $('#currentmovies .config').each(function(idx) {
     $('.up, .down', this).each(function() {
       $(this).css('display', 'inline');
     });
     $('.count', this).text(idx + 1);
   });
 
-  $('.config:first-child').each(function() {
+  $('#currentmovies .config:first-child').each(function() {
     $('.up', this).css('display', 'none');
   });
-  $('.config:last-child').each(function() {
+  $('#currentmovies .config:last-child').each(function() {
     $('.down', this).css('display', 'none');
   });
 }
@@ -126,7 +126,7 @@ $(document).ready(function() {
     }
   );
 
-  $('.config .up, .config .down').click(function() {
+  $('#currentmovies .config .up, #currentmovies .config .down').click(function() {
     var t = $(this),
         movie = t.parents('.config');
 
@@ -139,7 +139,7 @@ $(document).ready(function() {
     set_configs();
 
     var ids = [];
-    $('.config').each(function() { ids.push($(this).attr('id')) });
+    $('#currentmovies .config').each(function() { ids.push($(this).attr('id')) });
     console.log(ids)
 
     $.ajax({

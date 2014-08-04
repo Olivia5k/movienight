@@ -2,8 +2,18 @@
 
 {% block content %}
   <h1>{{ current.name }}</h1>
+  <h2>Upcoming greatness</h2>
   <div id="currentmovies">
-    {% for movie in current.get_movies %}
+    {% for movie in current.get_movable_movies %}
+      {% include "movethumb.html" %}
+    {% endfor %}
+  </div>
+
+  <div class="clear"></div>
+
+  <h2>Past movies</h2>
+  <div id="pastmovies">
+    {% for movie in current.get_past_movies %}
       {% include "movethumb.html" %}
     {% endfor %}
   </div>

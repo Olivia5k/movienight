@@ -13,6 +13,7 @@ def serialize_movie(movie, full=False, json=False):
         'imdb': 'http://imdb.com/title/{0}'.format(movie.imdb),
         'rating': movie.userrating,
         'booked': False,
+        'watched': False,
     }
 
     if movie.poster:
@@ -24,7 +25,9 @@ def serialize_movie(movie, full=False, json=False):
 
     booking = WatchlistMovie.objects.filter(movie_id=movie.id)
     if booking.exists() and not json:
+        book = booking[0]
         data['booked'] = True
-        data['booked_by'] = booking[0].user
+        data['booked_by'] = book.user
+        data['watched'] = book.watched
 
     return data

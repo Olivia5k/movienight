@@ -28,11 +28,20 @@ class MovieGoer(AbstractUser):
             return "OP"
         return self.first_name
 
-    def get_movies(self):
+    def get_movable_movies(self):
         from movienight.mn.utils import serialize_movie
         data = []
 
-        for wm in self.movies.all():
+        for wm in self.movies.filter(watched=False):
+            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+
+        return data
+
+    def get_past_movies(self):
+        from movienight.mn.utils import serialize_movie
+        data = []
+
+        for wm in self.movies.filter(watched=True):
             data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
 
         return data

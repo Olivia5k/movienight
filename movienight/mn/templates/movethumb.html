@@ -3,7 +3,7 @@
     <img class="poster" src="{{ movie.poster }}" />
   </a>
 
-  {% if user == current %}
+  {% if user == current and not movie.watched %}
     <p>
       <span class="up">⇦</span>
       &nbsp;
