@@ -100,7 +100,7 @@ class WatchlistMovie(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('order', 'date_created')
+        ordering = ('user', 'order', 'date_created')
 
     def __str__(self):
         return '{0} ({1})'.format(self.movie()['title'], self.user.first_name)
