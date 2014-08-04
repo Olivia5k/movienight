@@ -66,6 +66,16 @@ function roulette(state, data) {
     return setTimeout(roulette, state.timeout, state);
   }
 
+  // $('#chosen img').css('width', '500px');
+
+  setTimeout(function() {
+    $('#chosen h3').fadeIn(3000, function() {
+      $(this).fadeOut(1500, function() {
+        window.location.pathname = "/";
+      });
+    });
+  }, 1500);
+
   console.log('sending!');
   $.ajax({
     url: '/roulette/',
@@ -155,6 +165,11 @@ $(document).ready(function() {
       'low': 50,
       'high': 1500,
       'stalls': 100,
+      // Test data for lulz!
+      // 'timeout': 60,
+      // 'low': 50,
+      // 'high': 200,
+      // 'stalls': 10,
       'increment': 0.9,
       'up': true,
       'down': true,

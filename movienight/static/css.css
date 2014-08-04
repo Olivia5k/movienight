@@ -338,10 +338,23 @@ a {
 }
 #roulette img {
   width: 400px;
+  height: 600px;
 }
 #roulette .spinner {
   width: 300px;
 }
 #chosen {
-  height: 700px;
+  padding-bottom: 50px;
+  min-height: 700px;
+}
+#target {
+  position: relative;
+}
+#target h3 {
+  position: absolute;
+  left: 276px;
+  top: 230px;
+  font-size: 50px;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.7) 3px 3px 3px;
 }
