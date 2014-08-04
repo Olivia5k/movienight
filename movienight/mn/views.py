@@ -1,5 +1,4 @@
 import tmdb3
-import json
 
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -82,7 +81,7 @@ class MovieNightUserView(View):
             movie.order = x
             movie.save()
 
-        return HttpResponse(request, '"done"')
+        return HttpResponse('"done"')
 
 
 class MovieNightRouletteView(View):
@@ -95,25 +94,20 @@ class MovieNightRouletteView(View):
             return redirect('/')
 
         season = Season.objects.latest()
+        movies = []
+
+        for user in season.upcoming_users():
+            watchlist = user.movies.filter(watched=False)[0]
+            movies.append(serialize_movie(tmdb3.Movie(watchlist.movie_id)))
 
         data = {
             'season': season,
+            'movies': movies,
         }
         return render(request, 'roulette.html', data)
 
     def post(self, request):
         season = Season.objects.latest()
-        movies = []
-
-        for user in season.upcoming_users():
-            watchlist = user.movies.filter(watched=False)[0]
-            movie = tmdb3.Movie(watchlist.movie_id)
-
-            movies.append({
-                'owner': {'name': user.name(), 'img': user.large_picture()},
-                'movie': serialize_movie(movie, json=True)
-            })
-
         # watchlist.season = season
         # watchlist.save()
         return HttpResponse(json.dumps(movies))

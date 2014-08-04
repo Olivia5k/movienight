@@ -11,5 +11,12 @@
     <div class="btn">Hit it!</div>
   </div>
 
+  {% for movie in movies %}
+    <link id="{{ movie.id }}"
+      rel="prefetch"
+      href="{{ movie.large_poster }}"
+      alt="{{ movie.title }}">
+  {% endfor %}
 </div>
+
 {% endblock %}

@@ -48,8 +48,8 @@ function roulette(state, data) {
 
   var data = state.data[state.spins % state.data.length];
 
-  $('#chosen h1').text(data.movie.title);
-  $('#chosen img').attr('src', data.movie.large_poster).show();
+  $('#chosen h1').text(data.title);
+  $('#chosen img').attr('src', data.img).show();
 
   if(state.up) {
     state.timeout *= state.increment;
@@ -66,7 +66,29 @@ function roulette(state, data) {
     return setTimeout(roulette, state.timeout, state);
   }
 
-  console.log('done!');
+  console.log('sending!');
+  $.ajax({
+    url: '/roulette/',
+    type: 'POST',
+    data: {'id': data.id},
+    dataType: 'json',
+    success: function(data) {
+      console.log('done!');
+    }
+  });
+}
+
+function collect_roulette_data() {
+  var ret = [];
+  $('#roulette link').each(function() {
+    var t = $(this);
+    ret.push({
+      'id': t.attr('id'),
+      'img': t.attr('href'),
+      'title': t.attr('alt')
+    })
+  });
+  return ret;
 }
 
 function shuffle(array) {
@@ -124,33 +146,18 @@ $(document).ready(function() {
   set_configs()
 
   $('#roulette .btn').click(function() {
-    var target = document.getElementById('roulette');
-    var spinner = new Spinner(SPINNER_OPTS).spin(target);
     $(this).hide();
 
-    $.ajax({
-      url: '/roulette/',
-      type: 'POST',
-      data: '{"hehe": false}',
-      dataType: 'json',
-      success: function(data) {
-        spinner.stop();
-        console.log(data);
-
-        var state = {
-          'data': data,
-          'spins': 0,
-          'timeout': 1000,
-          'low': 50,
-          'high': 1500,
-          'stalls': 100,
-          'increment': 0.9,
-          'up': true,
-          'down': true,
-        }
-
-        roulette(state);
-      }
+    roulette({
+      'data': collect_roulette_data(),
+      'spins': 0,
+      'timeout': 1000,
+      'low': 50,
+      'high': 1500,
+      'stalls': 100,
+      'increment': 0.9,
+      'up': true,
+      'down': true,
     });
   });
 });
