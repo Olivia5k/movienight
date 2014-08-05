@@ -107,9 +107,18 @@ class MovieNightRouletteView(View):
         return render(request, 'roulette.html', data)
 
     def post(self, request):
+        season = Season.objects.latest()
+        movieset = season.movies.filter(watched=False)
+
+        if movieset.exists():
+            movie = movieset[0]
+            movie.watched = True
+            movie.save()
+
         watchlist = WatchlistMovie.objects.get(movie_id=request.POST['id'])
-        watchlist.season = Season.objects.latest()
+        watchlist.season = season
         watchlist.save()
+
         return HttpResponse('"done"')
 
 
