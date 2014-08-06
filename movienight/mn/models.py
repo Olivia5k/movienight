@@ -82,8 +82,11 @@ class Season(models.Model):
             'movie': serialize_movie(tmdb3.Movie(movie.movie_id))
         }
 
-    def episode(self):
-        return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + 1)
+    def episode(self, add=1):
+        return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + add)
+
+    def next_episode(self):
+        return self.episode(2)
 
     def upcoming_users(self):
         s = self.users.exclude(id__in=[x.user_id for x in self.movies.all()])
