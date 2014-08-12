@@ -262,6 +262,9 @@ a {
   background-color: #272b30;
   margin-top: 20px;
 }
+.hero img.robinwilliams {
+  height: 300px;
+}
 .hero h1 {
   font-size: 18px;
   color: #dbdbdb;
