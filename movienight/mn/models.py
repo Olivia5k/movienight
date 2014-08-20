@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 import tmdb3
 
 from django.db import models
@@ -114,8 +117,8 @@ class WatchlistMovie(models.Model):
     class Meta:
         ordering = ('user', 'watched', 'order', 'date_created')
 
-    def __str__(self):
-        return '{1} - {0}'.format(self.movie()['title'], self.user.first_name)
+    def __unicode__(self):
+        return u'{1} - {0}'.format(self.movie()['title'], self.user.first_name)
 
     def movie(self):
         from movienight.mn.utils import serialize_movie
