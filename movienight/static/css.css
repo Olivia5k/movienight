@@ -156,6 +156,14 @@ a {
   font-weight: bold;
   border-radius: 4px;
 }
+.movie .side .tmdb {
+  display: inline-block;
+  background-color: #385900;
+  padding: 4px 10px;
+  color: #dbdbdb;
+  font-weight: bold;
+  border-radius: 4px;
+}
 .movie .side .imdb:hover {
   background-color: #fce25b;
 }

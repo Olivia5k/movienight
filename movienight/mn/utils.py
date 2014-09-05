@@ -11,6 +11,7 @@ def serialize_movie(movie, full=False, json=False):
         'description': movie.overview,
         'runtime': movie.runtime,
         'imdb': 'http://imdb.com/title/{0}'.format(movie.imdb),
+        'tmdb': 'http://www.themoviedb.org/movie/{0}'.format(movie.id),
         'rating': movie.userrating,
         'booked': False,
         'watched': False,
