@@ -69,8 +69,8 @@ function roulette(state, data) {
   // $('#chosen img').css('width', '500px');
 
   setTimeout(function() {
-    $('#chosen h3').fadeIn(3000, function() {
-      $(this).fadeOut(1500, function() {
+    $('#chosen h3').fadeIn(360, function() {
+      $(this).fadeOut(500, function() {
         window.location.pathname = "/";
       });
     });
@@ -169,11 +169,13 @@ $(document).ready(function() {
       'low': 50,
       'high': 1500,
       'stalls': 100,
+
       // Test data for lulz!
       // 'timeout': 60,
       // 'low': 50,
       // 'high': 200,
       // 'stalls': 10,
+
       'increment': 0.9,
       'up': true,
       'down': true,
