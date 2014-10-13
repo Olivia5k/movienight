@@ -33,6 +33,22 @@ function set_configs() {
   });
 }
 
+function set_movie(movie) {
+  console.log('sending!');
+  $.ajax({
+    url: '/roulette/',
+    type: 'POST',
+    data: {'id': movie.id},
+    dataType: 'json',
+    success: function(data) {
+      console.log('done!');
+      setTimeout(function() {
+        window.location.pathname = "/";
+      }, 1500)
+    }
+  });
+}
+
 function roulette(state, data) {
   console.log(state);
 
@@ -66,26 +82,13 @@ function roulette(state, data) {
     return setTimeout(roulette, state.timeout, state);
   }
 
-  // $('#chosen img').css('width', '500px');
-
   setTimeout(function() {
     $('#chosen h3').fadeIn(360, function() {
       $(this).fadeOut(500, function() {
-        window.location.pathname = "/";
+        set_movie(data);
       });
     });
   }, 1500);
-
-  console.log('sending!');
-  $.ajax({
-    url: '/roulette/',
-    type: 'POST',
-    data: {'id': data.id},
-    dataType: 'json',
-    success: function(data) {
-      console.log('done!');
-    }
-  });
 }
 
 function collect_roulette_data() {
@@ -99,6 +102,16 @@ function collect_roulette_data() {
     })
   });
   return ret;
+}
+
+function single_roulette(movie) {
+  $('#chosen h1').text(movie.title);
+  $('#chosen img').attr('src', movie.img).fadeIn(3500, function() {
+    var h2 = $("<h2>").text('Winner by default! <3').hide();
+    h2.insertAfter($('#chosen img')).slideDown(1000, function() {
+      set_movie(movie);
+    });
+  });
 }
 
 function shuffle(array) {
@@ -162,8 +175,14 @@ $(document).ready(function() {
   $('#roulette .btn').click(function() {
     $(this).hide();
 
+    var data = collect_roulette_data();
+
+    if(data.length == 1) {
+      return single_roulette(data[0]);
+    }
+
     roulette({
-      'data': collect_roulette_data(),
+      'data': data,
       'spins': 0,
       'timeout': 1000,
       'low': 50,
