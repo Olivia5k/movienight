@@ -7,3 +7,4 @@ requests==2.3.0
 requests-oauthlib==0.3.1
 six==1.7.2
 tmdb3==0.6.17
+dealer==1.1.1
