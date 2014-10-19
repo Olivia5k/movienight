@@ -126,7 +126,7 @@ function shuffle(array) {
 
 $(document).ready(function() {
   if(window.location.hostname != 'movienight.ninjaloot.se') {
-    $('html, body').css('background-color', '#3d2222');
+    // $('html, body').css('background-color', '#3d2222');
     $('#bar-content h1, html head title').text('Dev Night!');
   }
   $('.movie .cast img').hover(
