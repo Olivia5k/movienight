@@ -146,15 +146,15 @@ function next_season() {
 }
 
 function load_next_season() {
-    $.ajax({
-      url: '/season/',
-      type: 'POST',
-      dataType: 'json',
-      data: {'season': 'x'},
-      success: function(data) {
-        console.log(data);
-      }
-    });
+  $.ajax({
+    url: '/season/',
+    type: 'POST',
+    dataType: 'json',
+    data: {'season': 'x'},
+    success: function(data) {
+      console.log(data);
+    }
+  });
 }
 
 function fade_season() {

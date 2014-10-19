@@ -49,6 +49,16 @@ class MovieGoer(AbstractUser):
 
         return data
 
+    def get_upcoming_movies(self):
+        from movienight.mn.utils import serialize_movie
+        data = []
+
+        # TODO: Make the UI handle more than 7
+        for wm in self.movies.filter(watched=False)[:7]:
+            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+
+        return data
+
 
 class Season(models.Model):
     users = models.ManyToManyField(MovieGoer, related_name='seasons')

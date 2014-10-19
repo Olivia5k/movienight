@@ -43,13 +43,22 @@
   <div class="season">
     <h1>Movie Night <span>{{ season.index }}</span></h1>
 
-    {% if season.upcoming_users %}
-      <h3>Remaining</h3>
-      {% for user in season.upcoming_users %}
-        {% if user.has_next %}
-          {% include "thumb.html" with movie=user.next_movie %}
-        {% endif %}
-      {% endfor %}
+    {% if season.id == 1 %}
+      {% if season.upcoming_users %}
+        <h3>Remaining</h3>
+        {% for user in season.upcoming_users %}
+          {% if user.has_next %}
+            {% include "thumb.html" with movie=user.next_movie %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% else %}
+      {% if season.upcoming_users %}
+        <h3>Remaining</h3>
+        {% for user in season.upcoming_users %}
+          {% include "userlist.html" with user=user %}
+        {% endfor %}
+      {% endif %}
     {% endif %}
 
     <div class="clear"></div>

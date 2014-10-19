@@ -111,6 +111,34 @@ a {
   overflow: hidden;
 }
 
+.userlist {
+  background-color: #3a3f44;
+  margin-bottom: 10px;
+  height: 90px;
+  padding: 10px;
+  overflow: hidden;
+}
+.userlist a.userlink {
+  display: block;
+  width: 90px;
+  height: 100%;
+  margin-right: 10px;
+  float: left;
+}
+.userlist img.user {
+  float: left;
+  height: 100%;
+  border-radius: 50px;
+}
+.userlist .movie {
+  height: 100%;
+  float: left;
+  margin: 0px 5px;
+}
+.userlist .movie img {
+  height: 100%;
+}
+
 .facebook-btn {
   margin-top: 2px;
   -moz-box-shadow:inset 0px 1px 0px 0px #7a8eb9;

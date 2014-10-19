@@ -1,0 +1,10 @@
+<div class="userlist">
+  <a class="userlink" href="/user/{{ user.first_name }}">
+    <img class="user" src="{{ user.large_picture }}" alt="{{ user.name }}"/>
+  </a>
+  {% for movie in user.get_upcoming_movies %}
+    <a class="movie" href="/movie/{{ movie.id }}">
+      <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+    </a>
+  {% endfor %}
+</div>
