@@ -67,8 +67,11 @@ class Season(models.Model):
             remaining
         )
 
-    def index(self):
-        return 'S{0:02}'.format(self.id)
+    def index(self, add=0):
+        return 'S{0:02}'.format(self.id + add)
+
+    def next_season(self):
+        return self.index(add=1)
 
     def next(self):
         from movienight.mn.utils import serialize_movie
@@ -89,7 +92,7 @@ class Season(models.Model):
         return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + add)
 
     def next_episode(self):
-        return self.episode(2)
+        return self.episode(add=2)
 
     def upcoming_users(self):
         s = self.users.exclude(id__in=[x.user_id for x in self.movies.all()])
@@ -103,6 +106,15 @@ class Season(models.Model):
             data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
 
         return data
+
+    def has_episodes_left(self):
+        """
+        Used to determine whether if we should show the "roll next" or "start
+        next season" buttons.
+
+        """
+
+        return self.movies.filter(watched=False).count() > 1
 
 
 class WatchlistMovie(models.Model):

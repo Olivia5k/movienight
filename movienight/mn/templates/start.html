@@ -40,7 +40,11 @@
     {% if user.is_superuser %}
       <div class="admin">
         <h1>Admin tools &lt;3</h1>
-        <a href="/roulette">Roll next movie</a>
+        {% if season.has_episodes_left %}
+          <a href="/roulette">Roll next movie</a>
+        {% else %}
+          <a href="/season">Start {{ season.next_season }}</a>
+        {% endif %}
         <a href="/admin" target="_blank">Site administration</a>
       </div>
     {% endif %}
