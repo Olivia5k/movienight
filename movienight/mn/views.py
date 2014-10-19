@@ -1,4 +1,5 @@
 import tmdb3
+import json
 
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -120,6 +121,26 @@ class MovieNightRouletteView(View):
         watchlist.save()
 
         return HttpResponse('"done"')
+
+
+class MovieNightSeasonView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(MovieNightSeasonView, self).dispatch(*args, **kwargs)
+
+    def post(self, request):
+        season = Season.objects.latest()
+        movieset = season.movies.filter(watched=False)
+        if movieset.exists():
+            movie = movieset[0]
+            movie.watched = True
+            movie.save()
+
+        season = Season()
+        season.save()
+        season.users.add(*MovieGoer.objects.exclude(first_name=''))
+
+        return HttpResponse(json.dumps("done"))
 
 
 def logout(request):

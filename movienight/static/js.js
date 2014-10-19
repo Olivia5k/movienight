@@ -147,7 +147,7 @@ function next_season() {
 
 function load_next_season() {
     $.ajax({
-      url: '/season',
+      url: '/season/',
       type: 'POST',
       dataType: 'json',
       data: {'season': 'x'},
