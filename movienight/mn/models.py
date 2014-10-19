@@ -123,9 +123,9 @@ class Season(models.Model):
         next season" buttons.
 
         """
-        watched = self.movies.filter(watched=False).count()
+        watched = self.movies.filter(watched=True).count()
         users = self.users.all().count()
-        return watched < users
+        return watched + 1 < users
 
 
 class WatchlistMovie(models.Model):
