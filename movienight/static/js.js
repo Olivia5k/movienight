@@ -124,6 +124,80 @@ function shuffle(array) {
   return array
 }
 
+function next_season() {
+  // Lock the height of the season
+  $('.season').height($('.season').height() + 10);
+
+  $('.hero').slideUp({
+    'duration': 2500,
+    'easing': 'easeOutBounce',
+    'complete': function() {
+      return run_away();
+    }
+  });
+
+  var retry = function() {
+    if($('.moviethumb').length == 0) {
+      return fade_season();
+    }
+    setTimeout(retry, 100);
+  };
+  setTimeout(retry, 100);
+}
+
+function load_next_season() {
+    $.ajax({
+      url: '/season',
+      type: 'POST',
+      dataType: 'json',
+      data: {'season': 'x'},
+      success: function(data) {
+        console.log(data);
+      }
+    });
+}
+
+function fade_season() {
+  $('.season h1 span').fadeOut(1500, function() {
+    // TODO
+    $(this).text('S02').fadeIn(2000, function() {
+      return load_next_season();
+    });
+  });
+}
+
+function run_away() {
+  var movies = $($('.moviethumb').get().reverse());
+  movies.each(function() {
+    var t = $(this);
+    var offset = t.offset();
+    t.css('position', 'absolute');
+    t.offset(offset);
+  })
+
+  $('.season h3').fadeOut();
+
+  // Reshuffle!
+  var movies = $(shuffle(movies.get()));
+
+  var x = 0
+  movies.each(function() {
+    var t = $(this);
+    x++;
+    setTimeout(
+      function() {
+        t.animate({'left': '1500px'}, {
+          'duration': 1500,
+          'easing': 'easeInExpo',
+          'complete': function() {
+            console.log('Done with ' + t.find('p').text());
+            t.remove();
+          },
+        });
+      }, x * 150)
+  })
+}
+
 $(document).ready(function() {
   if(window.location.hostname != 'movienight.ninjaloot.se') {
     // $('html, body').css('background-color', '#3d2222');
@@ -171,6 +245,8 @@ $(document).ready(function() {
   });
 
   set_configs()
+
+  $('#next_season').click(next_season);
 
   $('#roulette .btn').click(function() {
     $(this).hide();

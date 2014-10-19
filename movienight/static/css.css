@@ -3,6 +3,10 @@ body, html {
   background-color: #272b30;
   font-family: 'Droid Sans', sans-serif;
   margin: 0;
+  overflow-x: hidden;
+}
+html {
+  overflow-y: scroll;
 }
 
 a {
@@ -290,7 +294,8 @@ a {
 .admin h1 {
   font-size: 14px;
 }
-.admin a {
+.admin a, .admin span {
+  cursor: pointer;
   margin: 5px 10px;
   display: inline-block;
   background-color: #506070;
@@ -302,6 +307,7 @@ a {
 .season {
   float: left;
   width: 640px;
+  position: relative;
 }
 .season h1 {
   margin-top: 0px;

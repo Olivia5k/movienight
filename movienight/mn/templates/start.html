@@ -33,7 +33,7 @@
         {% if season.has_episodes_left %}
           <a href="/roulette">Roll next movie</a>
         {% else %}
-          <a href="/season">Start {{ season.next_season }}</a>
+          <span id="next_season">Start {{ season.next_season }}</span>
         {% endif %}
         <a href="/admin" target="_blank">Site administration</a>
       </div>
@@ -41,7 +41,7 @@
   </div>
 
   <div class="season">
-    <h1>Movie Night {{ season.index }}</h1>
+    <h1>Movie Night <span>{{ season.index }}</span></h1>
 
     {% if season.upcoming_users %}
       <h3>Remaining</h3>
