@@ -13,7 +13,7 @@
     <div class="split"></div>
 
     {% if movie.booked %}
-      {% if movie.booked_by == user %}
+      {% if movie.booked_by == user and not movie.watched %}
         <a href="/watchlist/{{ movie.id }}" class="btn remove">
           Remove from watchlist
         </a>
