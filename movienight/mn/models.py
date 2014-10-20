@@ -40,6 +40,38 @@ class MovieGoer(AbstractUser):
         # TODO: Make the UI handle more than 7
         return (m.serialize() for m in self.movies.filter(watched=False)[:7])
 
+    def get_weighted_random(self):
+        """
+        Gets a weighted random list of movie ids that this user has booked.
+
+        1st order: 30%
+        2nd order: 20%
+        3rd order: 10%
+
+        The last 40% are repetitions of all the ids, meaning that the list will
+        percentually include all of them but favor the three first ones.
+
+        """
+
+        ret = []
+        movies = [m for m in self.movies.filter(watched=False)]
+
+        if len(movies) == 0:
+            return ret
+
+        pre = movies[:3]
+        pre.reverse()
+
+        for x, movie in enumerate(pre, start=1):
+            ret += [movie.movie_id] * 10 * x
+
+        ids = [m.movie_id for m in movies]
+        while len(ret) + len(ids) <= 100:
+            ret += ids
+
+        print(len(ret), ret)
+        return ret
+
 
 class Season(models.Model):
     users = models.ManyToManyField(MovieGoer, related_name='seasons')

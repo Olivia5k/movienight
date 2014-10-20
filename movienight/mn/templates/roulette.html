@@ -15,11 +15,18 @@
   </div>
 
   {% for movie in movies %}
-    <link id="{{ movie.id }}"
+    <link id="movie-{{ movie.id }}"
       rel="prefetch"
       href="{{ movie.large_poster }}"
       alt="{{ movie.title }}">
   {% endfor %}
+  <script language="javascript" type="text/javascript">
+    var USERS = {
+    {% for id, random in users.items %}
+      {{ id }}: {{ random|safe }},
+    {% endfor %}
+    }
+  </script>
 </div>
 
 {% endblock %}

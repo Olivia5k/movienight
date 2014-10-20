@@ -98,14 +98,18 @@ class MovieNightRouletteView(View):
 
         season = Season.objects.latest()
         movies = []
+        users = {}
 
         for user in season.upcoming_users():
-            watchlist = user.movies.filter(watched=False)[0]
-            movies.append(watchlist.serialize())
+            movies += [m for m in user.get_movable_movies()]
+            rnd = user.get_weighted_random()
+            if rnd:
+                users[user.id] = rnd
 
         data = {
             'season': season,
             'movies': movies,
+            'users': users,
         }
         return render(request, 'roulette.html', data)
 

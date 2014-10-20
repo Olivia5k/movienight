@@ -58,8 +58,9 @@ function roulette(state, data) {
   state.spins++;
 
   // Shuffle the array
+  console.log(state.spins % state.data.length);
   if(state.spins % state.data.length === 0) {
-    state.data = shuffle(state.data);
+    state.data = collect_roulette_data();
   }
 
   var data = state.data[state.spins % state.data.length];
@@ -93,15 +94,19 @@ function roulette(state, data) {
 
 function collect_roulette_data() {
   var ret = [];
-  $('#roulette link').each(function() {
-    var t = $(this);
+  for(var id in USERS) {
+    var e = USERS[id];
+    var id = e[Math.floor(Math.random() * e.length)];
+    var t = $('#movie-' + id);
+
     ret.push({
-      'id': t.attr('id'),
+      'id': t.attr('id').replace('movie-', ''),
       'img': t.attr('href'),
       'title': t.attr('alt')
     })
-  });
-  return ret;
+  }
+
+  return shuffle(ret);
 }
 
 function single_roulette(movie) {
