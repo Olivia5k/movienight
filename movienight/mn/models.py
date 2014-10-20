@@ -31,29 +31,14 @@ class MovieGoer(AbstractUser):
         return self.first_name
 
     def get_movable_movies(self):
-        data = []
-
-        for wm in self.movies.filter(watched=False):
-            data.append(wm.serialize())
-
-        return data
+        return (m.serialize() for m in self.movies.filter(watched=False))
 
     def get_past_movies(self):
-        data = []
-
-        for wm in self.movies.filter(watched=True):
-            data.append(wm.serialize())
-
-        return data
+        return (m.serialize() for m in self.movies.filter(watched=True))
 
     def get_upcoming_movies(self):
-        data = []
-
         # TODO: Make the UI handle more than 7
-        for wm in self.movies.filter(watched=False)[:7]:
-            data.append(wm.serialize)
-
-        return data
+        return (m.serialize() for m in self.movies.filter(watched=False)[:7])
 
 
 class Season(models.Model):
@@ -104,12 +89,7 @@ class Season(models.Model):
         return s.order_by('?')
 
     def past_movies(self):
-        data = []
-
-        for wm in self.movies.filter(watched=True):
-            data.append(wm.serialize())
-
-        return data
+        return (m.serialize() for m in self.movies.filter(watched=True))
 
     def has_episodes_left(self):
         """
@@ -140,6 +120,6 @@ class WatchlistMovie(models.Model):
     def movie(self):
         return self.serialize()
 
-    def serialize(self, full=False, json=False):
+    def serialize(self):
         movie = tmdb3.Movie(self.movie_id)
         return serialize_movie(movie, booking=self)
