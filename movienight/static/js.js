@@ -145,15 +145,58 @@ function next_season() {
   setTimeout(retry, 100);
 }
 
+function reroulette() {
+  $('#next_season').slideUp(2000, function() {
+    var t = $(this);
+    t.attr('href', '/roulette').text('Roll next movie').unbind('click');
+    t.slideDown(2000, function() {
+      $(this).animate({'background-color': '#705050'}, {
+        'duration': 750,
+        'complete': function() {
+          console.log('done');
+        }
+      });
+    });
+  });
+}
+
+function redrop_current() {
+  var hero = $('.hero');
+  hero.find('a').remove();
+  hero.append($('<img class="poster"/>').attr('src', '/static/dogebutt.png'));
+  hero.append($('<h1 class="dark">').text('Nothing selected yet :('));
+  hero.slideDown({
+    'duration': 2500,
+    'easing': 'easeOutBounce',
+    'complete': reroulette,
+  });
+}
+
 function load_next_season() {
+  var loop = function(movies) {
+    var s = $('.season');
+    s.height('auto');
+    if(movies.length == 0) {
+      return redrop_current();
+    }
+    $(movies.pop()).css('margin-left', '1500px').appendTo(s).animate(
+      {
+        'margin-left': '0px',
+      },
+      {
+        'duration': 1800,
+        'easing': 'easeOutExpo',
+      }
+    );
+    setTimeout(loop, 250, movies);
+  };
+
   $.ajax({
     url: '/season/',
     type: 'POST',
     dataType: 'json',
     data: {'season': 'x'},
-    success: function(data) {
-      console.log(data);
-    }
+    success: loop
   });
 }
 

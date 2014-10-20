@@ -7,6 +7,8 @@ from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout as auth_logout
+from django.template.loader import get_template
+from django.template import Context
 
 from movienight.mn.utils import serialize_movie
 from movienight.mn.models import WatchlistMovie
@@ -136,11 +138,19 @@ class MovieNightSeasonView(View):
             movie.watched = True
             movie.save()
 
+        users = MovieGoer.objects.exclude(first_name='')
         season = Season()
         season.save()
-        season.users.add(*MovieGoer.objects.exclude(first_name=''))
+        season.users.add(*users)
 
-        return HttpResponse(json.dumps("done"))
+        ret = []
+        template = get_template('userlist.html')
+        for user in users.order_by('?'):
+            ret.append(
+                template.render(Context({'user': user}))
+            )
+
+        return HttpResponse(json.dumps(ret))
 
 
 def logout(request):
