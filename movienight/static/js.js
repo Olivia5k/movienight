@@ -166,6 +166,8 @@ function reroulette() {
 }
 
 function redrop_current() {
+  return reroulette();
+
   var hero = $('.hero');
   hero.find('a').remove();
   hero.append($('<img class="poster"/>').attr('src', '/static/dogebutt.png'));
@@ -215,6 +217,8 @@ function fade_season() {
 }
 
 function run_away() {
+  $('.admin').animate({'margin-top': '0px'}, {'duration': 400});
+
   var movies = $($('.moviethumb').get().reverse());
   movies.each(function() {
     var t = $(this);
