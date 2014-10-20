@@ -111,7 +111,9 @@ class Season(models.Model):
         }
 
     def episode(self, add=1):
-        return '{0}E{1:02}'.format(self.index(), len(self.past_movies()) + add)
+        return '{0}E{1:02}'.format(
+            self.index(), self.movies.filter(watched=True).count() + add
+        )
 
     def next_episode(self):
         return self.episode(add=2)
