@@ -99,7 +99,7 @@ class MovieNightRouletteView(View):
 
         for user in season.upcoming_users():
             watchlist = user.movies.filter(watched=False)[0]
-            movies.append(serialize_movie(tmdb3.Movie(watchlist.movie_id)))
+            movies.append(watchlist.serialize())
 
         data = {
             'season': season,

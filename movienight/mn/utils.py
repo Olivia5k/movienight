@@ -1,7 +1,4 @@
-from movienight.mn.models import WatchlistMovie
-
-
-def serialize_movie(movie, full=False, json=False):
+def serialize_movie(movie, full=False, booking=None):
     data = {
         'id': movie.id,
         'title': movie.title,
@@ -24,11 +21,15 @@ def serialize_movie(movie, full=False, json=False):
     if full:
         data['cast'] = [c for c in movie.cast[:10]]
 
-    booking = WatchlistMovie.objects.filter(movie_id=movie.id)
-    if booking.exists() and not json:
-        book = booking[0]
+    if booking is None:
+        from movienight.mn.models import WatchlistMovie
+        bs = WatchlistMovie.objects.filter(movie_id=movie.id)
+        if bs.exists():
+            booking = bs[0]
+
+    if booking is not None:
         data['booked'] = True
-        data['booked_by'] = book.user
-        data['watched'] = book.watched
+        data['booked_by'] = booking.user
+        data['watched'] = booking.watched
 
     return data

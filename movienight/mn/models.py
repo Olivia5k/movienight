@@ -6,6 +6,8 @@ import tmdb3
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from movienight.mn.utils import serialize_movie
+
 
 class MovieGoer(AbstractUser):
     def picture(self):
@@ -20,11 +22,8 @@ class MovieGoer(AbstractUser):
         return self.movies.filter(watched=False).exists()
 
     def next_movie(self):
-        from movienight.mn.utils import serialize_movie
-
-        item = self.movies.filter(watched=False)[0]
-        movie = tmdb3.Movie(item.movie_id)
-        return serialize_movie(movie)
+        movie = self.movies.filter(watched=False)[0]
+        return movie.serialize()
 
     def name(self):
         if self.first_name in ('Daniel', 'Lowe'):
@@ -32,30 +31,27 @@ class MovieGoer(AbstractUser):
         return self.first_name
 
     def get_movable_movies(self):
-        from movienight.mn.utils import serialize_movie
         data = []
 
         for wm in self.movies.filter(watched=False):
-            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+            data.append(wm.serialize())
 
         return data
 
     def get_past_movies(self):
-        from movienight.mn.utils import serialize_movie
         data = []
 
         for wm in self.movies.filter(watched=True):
-            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+            data.append(wm.serialize())
 
         return data
 
     def get_upcoming_movies(self):
-        from movienight.mn.utils import serialize_movie
         data = []
 
         # TODO: Make the UI handle more than 7
         for wm in self.movies.filter(watched=False)[:7]:
-            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+            data.append(wm.serialize)
 
         return data
 
@@ -84,7 +80,6 @@ class Season(models.Model):
         return self.index(add=1)
 
     def next(self):
-        from movienight.mn.utils import serialize_movie
         movieset = self.movies.filter(watched=False)
         if not movieset.exists():
             return {
@@ -95,7 +90,7 @@ class Season(models.Model):
         movie = movieset[0]
         return {
             'user': movie.user,
-            'movie': serialize_movie(tmdb3.Movie(movie.movie_id))
+            'movie': movie.serialize(),
         }
 
     def episode(self, add=1):
@@ -109,11 +104,10 @@ class Season(models.Model):
         return s.order_by('?')
 
     def past_movies(self):
-        from movienight.mn.utils import serialize_movie
         data = []
 
         for wm in self.movies.filter(watched=True):
-            data.append(serialize_movie(tmdb3.Movie(wm.movie_id)))
+            data.append(wm.serialize())
 
         return data
 
@@ -144,5 +138,8 @@ class WatchlistMovie(models.Model):
         return u'{1} - {0}'.format(self.movie()['title'], self.user.first_name)
 
     def movie(self):
-        from movienight.mn.utils import serialize_movie
-        return serialize_movie(tmdb3.Movie(self.movie_id))
+        return self.serialize()
+
+    def serialize(self, full=False, json=False):
+        movie = tmdb3.Movie(self.movie_id)
+        return serialize_movie(movie, booking=self)
