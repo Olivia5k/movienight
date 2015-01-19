@@ -210,7 +210,7 @@ function load_next_season() {
 function fade_season() {
   $('.season h1 span').fadeOut(1500, function() {
     // TODO
-    $(this).text('S02').fadeIn(2000, function() {
+    $(this).text('S03').fadeIn(2000, function() {
       return load_next_season();
     });
   });
