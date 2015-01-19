@@ -20,6 +20,12 @@
       href="{{ movie.large_poster }}"
       alt="{{ movie.title }}">
   {% endfor %}
+
+  <link id="twilight"
+    rel="prefetch"
+    href="https://image.tmdb.org/t/p/original/nlvPMLCdum7bkHKmDSMnNLGztmW.jpg"
+    alt="Twilight">
+
   <script language="javascript" type="text/javascript">
     var USERS = {
     {% for id, random in users.items %}

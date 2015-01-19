@@ -83,13 +83,18 @@ function roulette(state, data) {
     return setTimeout(roulette, state.timeout, state);
   }
 
+  $('#chosen h1').text('Twilight!');
+  $('#chosen img').attr('src', $('#twilight').attr('href')).show();
+
   setTimeout(function() {
-    $('#chosen h3').fadeIn(360, function() {
-      $(this).fadeOut(500, function() {
-        set_movie(data);
+    setTimeout(function() {
+      $('#chosen h3').fadeIn(360, function() {
+        $(this).fadeOut(500, function() {
+          set_movie(data);
+        });
       });
-    });
-  }, 1500);
+    }, 1500);
+  }, 1000);
 }
 
 function collect_roulette_data() {
