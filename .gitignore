@@ -39,3 +39,4 @@ nosetests.xml
 tmdb3.api.txt
 movienight/local_settings.py
 movienight/data
+/movienight/game.of.thrones.txt

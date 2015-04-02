@@ -27,6 +27,10 @@ DATABASES = {
     }
 }
 
+GAME_OF_THRONES = os.path.isfile(
+    os.path.join(PROJECT_PATH, 'game.of.thrones.txt')
+)
+
 # The API key needs to be set as soon as possible, so why not here?
 with open('tmdb3.api.txt') as _api:
     tmdb3.set_key(_api.read().strip())
