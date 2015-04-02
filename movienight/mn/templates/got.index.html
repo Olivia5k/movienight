@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Movie Night! |o/</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static "got.css" %}?sha={{ REVISION }}" />
+    <link rel="icon" type="image/png" href="/static/favicon.ico" />
+    <script language="javascript" type="text/javascript" src="{% static "jquery.js" %}?sha={{ REVISION }}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "jquery-ui.min.js" %}?sha={{ REVISION }}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "js.js" %}?sha={{ REVISION }}"></script>
+  </head>
+
+  <body>
+    <div id="bar">
+      <div id="logo"></div>
+    </div>
+    
+    {% if user.is_authenticated and False %}
+      <div id="main">{% block content %}{% endblock %}</div>
+    {% else %}
+      <div id="main" class="outside">
+        <h1>
+          Valar dohaeris, wanderer.
+        </h1>
+        <p>
+          Only those who swear allegiance to the Faceless Gods may enter.
+        </p>
+        <p>
+          State your name and you will be granted sanctuary.
+        </p>
+        <a class="facebook-btn" href="/login/facebook/">
+          By the old gods and the new
+        </a>
+      </div>
+    {% endif %}
+  </body>
+</html>

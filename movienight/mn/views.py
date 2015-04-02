@@ -10,6 +10,7 @@ from django.contrib.auth import logout as auth_logout
 from django.template.loader import get_template
 from django.template import Context
 
+from movienight import settings
 from movienight.mn.utils import serialize_movie
 from movienight.mn.models import WatchlistMovie
 from movienight.mn.models import Season
@@ -21,7 +22,10 @@ class MovieNightView(View):
         data = {}
 
         search = request.GET.get('search', '').strip()
-        if search:
+        if settings.GAME_OF_THRONES:
+            template = 'got.index.html'
+
+        elif search:
             template = 'search.html'
             res = tmdb3.searchMovie(request.GET['search'])
             data['movies'] = [serialize_movie(m) for m in res[:20]]
