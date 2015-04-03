@@ -9,6 +9,28 @@ from django.contrib.auth.models import AbstractUser
 from movienight.mn.utils import serialize_movie
 
 
+class House(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.CharField(max_length=100)
+    person = models.CharField(max_length=100)
+    user = models.OneToOneField('MovieGoer')
+
+    def __unicode__(self):
+        return u'{0} of House {1} ({2})'.format(self.person, self.name,
+                                                self.user.first_name)
+
+
+class Title(models.Model):
+    title = models.CharField(max_length=100)
+    user = models.ForeignKey('MovieGoer')
+
+    class Meta:
+        ordering = ('user', 'title')
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.user.first_name, self.title)
+
+
 class MovieGoer(AbstractUser):
     def picture(self):
         social = self.social_auth.get()
