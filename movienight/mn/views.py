@@ -15,6 +15,7 @@ from movienight.mn.utils import serialize_movie
 from movienight.mn.models import WatchlistMovie
 from movienight.mn.models import Season
 from movienight.mn.models import MovieGoer
+from movienight.mn.models import House
 
 
 class MovieNightView(View):
@@ -24,6 +25,7 @@ class MovieNightView(View):
         search = request.GET.get('search', '').strip()
         if settings.GAME_OF_THRONES:
             template = 'got.index.html'
+            data['houses'] = House.objects.all().order_by('?')
 
         elif search:
             template = 'search.html'

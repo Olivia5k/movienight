@@ -19,8 +19,18 @@
       <div id="logo"></div>
     </div>
     
-    {% if user.is_authenticated and False %}
-      <div id="main">{% block content %}{% endblock %}</div>
+    {% if user.is_authenticated %}
+      <div id="main">
+        {% for house in houses %}
+          <div id="{{ house.image }}" class="house">
+            <img alt="House {{ house.name }}" src="/static/houses/{{ house.image }}.png" class="coat">
+            <img alt="{{ house.person }}" src="{{ house.user.picture }}" class="avatar">
+            <p class="name">
+              House {{ house.name }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
     {% else %}
       <div id="main" class="outside">
         <h1>

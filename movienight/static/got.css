@@ -28,7 +28,7 @@ a {
 }
 #bar {
   width: 100%;
-  height: 200px;
+  height: 170px;
 }
 #bar #logo {
   width: 1138px;
@@ -39,6 +39,30 @@ a {
 
 }
 
+#main .house {
+    width: 90px;
+    float: left;
+    margin: 0px 5px;
+    position: relative;
+}
+#main .house img.coat {
+    width: 90px;
+}
+#main .house img.avatar {
+    width: 30px;
+    position: absolute;
+    border-radius: 30px;
+    right: 0px;
+    top: 90px;
+}
+#main .house .name {
+    text-align: center;
+    display: none;
+}
+#main .house:hover .name {
+    display: block;
+}
+    
 .facebook-btn {
   margin-top: 2px;
   -moz-box-shadow:inset 0px 1px 0px 0px #616189;
