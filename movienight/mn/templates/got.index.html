@@ -22,9 +22,9 @@
     {% if user.is_authenticated %}
       <div id="main">
         {% for house in houses %}
-          <div id="{{ house.image }}" class="house">
+          <div id="{{ house.image }}" class="house" style="left: {{ house.position }}px;">
             <img alt="House {{ house.name }}" src="/static/houses/{{ house.image }}.png" class="coat">
-            <img alt="{{ house.person }}" src="{{ house.user.picture }}" class="avatar">
+            <img alt="{{ house.person }}" src="{{ house.user.large_picture }}" class="avatar">
             <p class="name">
               House {{ house.name }}
             </p>

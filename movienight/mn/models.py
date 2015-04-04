@@ -23,6 +23,9 @@ class House(models.Model):
         return u'{0} of House {1} ({2})'.format(self.person, self.name,
                                                 self.user.first_name)
 
+    def position(self):
+        return 5 + 100 * (self.order - 1)
+
 
 class Title(models.Model):
     title = models.CharField(max_length=100)
