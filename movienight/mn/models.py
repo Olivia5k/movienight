@@ -26,6 +26,8 @@ class House(models.Model):
                                                 self.user.first_name)
 
     def position(self):
+        if self.selected:
+            return 150;
         return 5 + 100 * (self.order - 1)
 
     def classes(self):
@@ -33,7 +35,14 @@ class House(models.Model):
             return "past"
         elif self.selected:
             return "selected"
-        return ""
+        return "inactive"
+
+    @staticmethod
+    def get_selected():
+        house = House.objects.filter(selected=True, done=False)
+        if house:
+            return house[0]
+        return None
 
 
 class Title(models.Model):

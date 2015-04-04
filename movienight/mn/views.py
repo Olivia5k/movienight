@@ -26,6 +26,7 @@ class MovieNightView(View):
         if settings.GAME_OF_THRONES:
             template = 'got.index.html'
             data['houses'] = House.objects.all()
+            data['selected'] = House.get_selected()
 
         elif search:
             template = 'search.html'

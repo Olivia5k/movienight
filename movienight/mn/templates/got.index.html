@@ -10,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "got.css" %}?sha={{ REVISION }}" />
     <link rel="icon" type="image/png" href="/static/favicon.ico" />
     <script language="javascript" type="text/javascript" src="{% static "jquery.js" %}?sha={{ REVISION }}"></script>
-    <script language="javascript" type="text/javascript" src="{% static "jquery-ui.min.js" %}?sha={{ REVISION }}"></script>
-    <script language="javascript" type="text/javascript" src="{% static "js.js" %}?sha={{ REVISION }}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "got.js" %}?sha={{ REVISION }}"></script>
   </head>
 
   <body>
@@ -23,8 +22,7 @@
       <div id="main">
         {% for house in houses %}
           <div id="{{ house.image }}"
-               class="house {{ house.classes }}"
-               style="left: {{ house.position }}px;">
+               class="house {{ house.classes }}">
             <img alt="House {{ house.name }}"
                  src="/static/houses/{{ house.image }}.png"
                  class="coat">
@@ -34,6 +32,19 @@
             <p class="name">
               House {{ house.name }}
             </p>
+            <div class="person">
+              <h3>
+                {{ house.person }}
+              </h3>
+              <i>
+                House {{ house.name }}
+              </i>
+              <ul>
+                {% for title in house.user.title_set.all %}
+                  <li>{{ title.title }}</li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         {% endfor %}
       </div>
