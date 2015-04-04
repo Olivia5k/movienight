@@ -14,6 +14,10 @@ class House(models.Model):
     image = models.CharField(max_length=100)
     person = models.CharField(max_length=100)
     user = models.OneToOneField('MovieGoer')
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
 
     def __unicode__(self):
         return u'{0} of House {1} ({2})'.format(self.person, self.name,
