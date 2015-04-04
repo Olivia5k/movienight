@@ -15,6 +15,8 @@ class House(models.Model):
     person = models.CharField(max_length=100)
     user = models.OneToOneField('MovieGoer')
     order = models.IntegerField(default=0)
+    selected = models.BooleanField(default=False)
+    done = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('order',)
@@ -25,6 +27,13 @@ class House(models.Model):
 
     def position(self):
         return 5 + 100 * (self.order - 1)
+
+    def classes(self):
+        if self.selected and self.done:
+            return "past"
+        elif self.selected:
+            return "selected"
+        return ""
 
 
 class Title(models.Model):
