@@ -38,7 +38,6 @@ a {
   margin: 0px auto;
   background-image: url("got.png");
   background-repeat: no-repeat;
-
 }
 
 #main .house {
@@ -58,6 +57,10 @@ a {
     border-radius: 500px;
     right: 0px;
     top: 90px;
+    display: none;
+}
+#main .house.past img.avatar {
+    display: block;
 }
 #main .house .name {
     text-align: center;
