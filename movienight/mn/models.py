@@ -53,7 +53,7 @@ class Title(models.Model):
         ordering = ('user', 'title')
 
     def __unicode__(self):
-        return u'{0} - {1}'.format(self.user.first_name, self.title)
+        return u'{0} - {1}'.format(self.user.house.person, self.title)
 
 
 class MovieGoer(AbstractUser):
