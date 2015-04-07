@@ -28,11 +28,11 @@
                  class="coat">
             <img alt="{{ house.person }}"
                  src="{{ house.user.large_picture }}"
-                 class="avatar">
+                 class="avatar {% if not house.selected %}hidden{% endif %}">
             <p class="name">
               House {{ house.name }}
             </p>
-            <div class="person">
+            <div class="person {% if house.selected %}selected{% endif %}">
               <h3>
                 {{ house.person }}
               </h3>
@@ -47,6 +47,11 @@
             </div>
           </div>
         {% endfor %}
+        {% if not selected %}
+          <div id="winebearer" class="facebook-btn">
+            A winebearer is needed
+          </div>
+        {% endif %}
       </div>
     {% else %}
       <div id="main" class="outside">
