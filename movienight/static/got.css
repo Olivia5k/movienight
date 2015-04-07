@@ -67,6 +67,7 @@ a {
     position: absolute;
     border-radius: 500px;
     left: 60px;
+    top: 85px;
 }
 .house .person {
     display: block;
@@ -150,16 +151,16 @@ a {
     position: relative;
 }
 
-#stark2.inactive {left: 5px;}
-#greyjoy.inactive {left: 105px;}
-#tyrell.inactive {left: 205px;}
-#martell.inactive {left: 305px;}
-#lannister.inactive {left: 405px;}
-#arryn.inactive {left: 505px;}
-#targaryen.inactive {left: 605px;}
-#baratheon.inactive {left: 705px;}
-#tully.inactive {left: 805px;}
-#stark.inactive {left: 905px;}
+#stark2.inactive, #stark2.past {left: 5px;}
+#greyjoy.inactive, #greyjoy.past {left: 105px;}
+#tyrell.inactive, #tyrell.past {left: 205px;}
+#martell.inactive, #martell.past {left: 305px;}
+#lannister.inactive, #lannister.past {left: 405px;}
+#arryn.inactive, #arryn.past {left: 505px;}
+#targaryen.inactive, #targaryen.past {left: 605px;}
+#baratheon.inactive, #baratheon.past {left: 705px;}
+#tully.inactive, #tully.past {left: 805px;}
+#stark.inactive, #stark.past {left: 905px;}
     
 .facebook-btn {
   margin-top: 2px;

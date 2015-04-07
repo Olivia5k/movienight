@@ -5,6 +5,7 @@ from movienight.mn.views import MovieNightWatchlist
 from movienight.mn.views import MovieNightUserView
 from movienight.mn.views import MovieNightRouletteView
 from movienight.mn.views import MovieNightSeasonView
+from movienight.mn.views import MovieNightHouseView
 from movienight.mn.views import logout
 
 urlpatterns = (
@@ -14,6 +15,7 @@ urlpatterns = (
     url(r'^user/(?P<first_name>.+)', MovieNightUserView.as_view()),
     url(r'^roulette/', MovieNightRouletteView.as_view()),
     url(r'^season/', MovieNightSeasonView.as_view()),
+    url(r'^house/(?P<house>.+)', MovieNightHouseView.as_view()),
 
     url(r'^logout/', logout),
 )

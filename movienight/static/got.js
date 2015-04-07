@@ -8,6 +8,10 @@ function promote_house(disable) {
     var houses = $('.house.inactive');
     var house = $(houses[Math.floor(Math.random()*houses.length)]);
 
+    $.ajax({
+        'url': '/house/' + house.attr('id')
+    });
+
     setTimeout(function() {
         house.removeClass('inactive').addClass('selected');
     }, time);
@@ -40,5 +44,9 @@ $(document).ready(function(){
         t.fadeOut(700, function() {
             promote_house(false);
         });
+    });
+
+    $('.house.selected').dblclick(function() {
+        promote_house(true); 
     });
 });

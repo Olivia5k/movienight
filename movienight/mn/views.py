@@ -55,6 +55,20 @@ class MovieNightMovie(View):
         )
 
 
+class MovieNightHouseView(View):
+    def get(self, request, house):
+        selected = House.get_selected()
+        if selected:
+            selected.done = True
+            selected.save()
+
+        house = House.objects.get(image=house)
+        house.selected = True
+        house.save()
+
+        return HttpResponse('"done"')
+
+
 class MovieNightWatchlist(View):
     def get(self, request, movie_id):
         item, created = WatchlistMovie.objects.get_or_create(
