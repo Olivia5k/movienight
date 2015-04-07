@@ -1,8 +1,11 @@
 function promote_house(disable) {
     var time = 0;
     if (disable === true) {
-        $('.selected').removeClass('selected').addClass('inactive');
-        time = 2600;
+        var current = $('.selected');
+        current.find('.avatar').fadeOut(1000, function() {
+            current.removeClass('selected').addClass('inactive');
+        });
+        time = 3600;
     }
 
     var houses = $('.house.inactive');
@@ -47,6 +50,6 @@ $(document).ready(function(){
     });
 
     $('.house.selected').dblclick(function() {
-        promote_house(true); 
+        promote_house(true);
     });
 });
