@@ -21,6 +21,9 @@ a {
 .center {
   text-align: center;
 }
+.hidden {
+    display: none;
+}
 
 #main {
   width: 1000px;
@@ -49,7 +52,7 @@ a {
 .house.selected {
     top: 200px;
     width: 250px;
-    left: 200px;
+    left: 100px;
     transition: all 2.5s ease-in-out;
 }
 .house img.coat {
@@ -64,16 +67,15 @@ a {
     position: absolute;
     border-radius: 500px;
     left: 60px;
-    display: none;
 }
 .house .person {
-    display: none;
+    display: block;
 }
 .house.past img.avatar {
     display: block;
 }
 .house.selected {
-    width: 800px;
+    width: 1000px;
 }
 .house.selected img.coat {
     width: 250px;
@@ -81,20 +83,39 @@ a {
     -webkit-filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5));
 }
 .house.selected img.avatar {
-    display: block;
     max-width: 100px;
     max-height: 100px;
     right: 0px;
     left: 150px;
     top: 225px;
-    transition: display 2s;
     box-shadow: 0px 0px 6px #000;
 }
-.house.selected .person {
-    display: block;
-    font-size: 150%;
+.house .person {
+    font-size: 200%;
+    line-height: 150%;
     float: right;
-    width: 500px;
+    width: 700px;
+}
+.house .person h3,
+.house .person ul {
+    margin-top: 0px;
+}
+.house .person h3,
+.house .person i,
+.house .person li {
+    display: none;
+}
+.house .person.selected h3,
+.house .person.selected ul,
+.house .person.selected i {
+    display: block;
+}
+.house .person.selected li {
+    display: list-item;
+}
+.house.inactive .person,
+.house.past .person {
+    display: none;
 }
 .house.selected .person i {
     font-size: 80%;
@@ -106,15 +127,27 @@ a {
 .house.selected .person h3,
 .house.selected .person i,
 .house.selected .person ul
-{
-    margin-bottom: 0px;
-}
+ {
+     margin-bottom: 0px;
+ }
 .house .name {
     text-align: center;
     display: none;
 }
-.house.past:hover .name, .house.inactive:hover .name {
+.house.past:hover .name,
+.house.inactive:hover .name {
     display: block;
+}
+
+#winebearer {
+    top: 200px;
+    width: 400px;
+    left: 250px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    display: inline-block;
+    position: relative;
 }
 
 #stark2.inactive {left: 5px;}
