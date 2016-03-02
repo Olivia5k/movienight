@@ -32,6 +32,7 @@
         <h1>Admin tools &lt;3</h1>
         {% if season.has_episodes_left %}
           <a href="/roulette">Roll next movie</a>
+          <a href="/roulette?reroll=true">Re-roll</a>
         {% else %}
           <a href="#" id="next_season">Start {{ season.next_season }}</a>
         {% endif %}

@@ -127,6 +127,16 @@ class MovieNightRouletteView(View):
             if rnd:
                 users[user.id] = rnd
 
+        # If we have set the re-roll parameter, put the current movie back in
+        # the upcoming bucket.
+        if request.GET.get('reroll', None) is not None:
+            movieset = season.movies.filter(watched=False)
+
+            if movieset.exists():
+                movie = movieset[0]
+                movie.season = None
+                movie.save()
+
         data = {
             'season': season,
             'movies': movies,
