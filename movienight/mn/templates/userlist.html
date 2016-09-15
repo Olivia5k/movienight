@@ -1,5 +1,5 @@
 <div class="userlist">
-  <a class="userlink" href="/user/{{ user.first_name }}">
+  <a class="userlink" href="/user/{{ user.username }}">
     <img class="user" src="{{ user.large_picture }}" alt="{{ user.name }}"/>
   </a>
   {% for movie in user.get_upcoming_movies %}

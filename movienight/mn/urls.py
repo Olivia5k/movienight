@@ -12,7 +12,7 @@ urlpatterns = (
     url(r'^$', MovieNightView.as_view()),
     url(r'^movie/(?P<movie_id>\d+)', MovieNightMovie.as_view(), name='movie'),
     url(r'^watchlist/(?P<movie_id>\d+)', MovieNightWatchlist.as_view()),
-    url(r'^user/(?P<first_name>.+)', MovieNightUserView.as_view()),
+    url(r'^user/(?P<username>.+)', MovieNightUserView.as_view()),
     url(r'^roulette/', MovieNightRouletteView.as_view()),
     url(r'^season/', MovieNightSeasonView.as_view()),
     url(r'^house/(?P<house>.+)', MovieNightHouseView.as_view()),

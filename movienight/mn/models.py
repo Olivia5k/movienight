@@ -73,8 +73,6 @@ class MovieGoer(AbstractUser):
         return movie.serialize()
 
     def name(self):
-        if self.first_name in ('Daniel', 'Lowe'):
-            return "OP"
         return self.first_name
 
     def get_movable_movies(self):

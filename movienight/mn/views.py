@@ -87,8 +87,8 @@ class MovieNightUserView(View):
     def dispatch(self, *args, **kwargs):
         return super(MovieNightUserView, self).dispatch(*args, **kwargs)
 
-    def get(self, request, first_name):
-        user = MovieGoer.objects.get(first_name=first_name)
+    def get(self, request, username):
+        user = MovieGoer.objects.get(username=username)
 
         return render(
             request,
@@ -96,8 +96,8 @@ class MovieNightUserView(View):
             {'current': user}
         )
 
-    def post(self, request, first_name):
-        user = MovieGoer.objects.get(first_name=first_name)
+    def post(self, request, username):
+        user = MovieGoer.objects.get(username=username)
         ids = [int(x) for x in request.POST.get('ids').split(',')]
 
         for x, mid in enumerate(ids):
@@ -173,7 +173,7 @@ class MovieNightSeasonView(View):
             movie.watched = True
             movie.save()
 
-        users = MovieGoer.objects.exclude(first_name='')
+        users = MovieGoer.objects.exclude(username='')
         season = Season()
         season.save()
         season.users.add(*users)

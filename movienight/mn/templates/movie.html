@@ -19,7 +19,7 @@
         </a>
       {% endif %}
 
-      <a href="/user/{{ movie.booked_by.first_name }}" class="bookie">
+      <a href="/user/{{ movie.booked_by.username }}" class="bookie">
         <img
           class="book_avatar"
           src="{{ movie.booked_by.large_picture }}"
